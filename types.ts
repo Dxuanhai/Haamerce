@@ -3,15 +3,16 @@ export interface Product {
   category: Category;
   name: string;
   price: string;
+  discount: string;
   isFeatured: boolean;
-  size: Size;
-  color: Color;
+
   productColors: {
-    colors: Color[];
+    color: Color;
     images: {
       id: string;
       url: string;
     }[];
+    sizes: Size;
   }[];
 }
 
