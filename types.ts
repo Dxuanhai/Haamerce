@@ -12,7 +12,7 @@ export interface Product {
       id: string;
       url: string;
     }[];
-    sizes: Size;
+    sizes: Size[];
   }[];
 }
 
@@ -25,7 +25,6 @@ export interface Billboard {
 export interface Category {
   id: string;
   name: string;
-  billboard: Billboard;
 }
 
 export interface Size {
