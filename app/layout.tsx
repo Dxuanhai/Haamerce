@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/navbar";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "@/components/modeToggle";
+import Container from "@/components/ui/container";
 
 const inter = Montserrat({ subsets: ["latin"], weight: ["400"] });
 
@@ -23,7 +24,7 @@ export default function RootLayout({
       <body
         className={cn(
           inter.className,
-          "bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-slate-200 via-white to-slate-200 dark:from-gray-950 dark:via-slate-600 dark:to-gray-950 dark:text-zinc-300 text-slate-800"
+          "bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-slate-200 via-white to-slate-200 dark:from-neutral-950 dark:via-slate-700 dark:to-neutral-950 dark:text-zinc-300 text-slate-800"
         )}
       >
         <ThemeProvider
@@ -31,8 +32,10 @@ export default function RootLayout({
           defaultTheme="ligtt"
           storageKey="hanime-theme"
         >
-          <Navbar />
-          {children}
+          <Container>
+            <Navbar />
+            {children}
+          </Container>
           <div className="fixed bottom-5 right-4">
             <ModeToggle />
           </div>

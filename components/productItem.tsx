@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import ColorCard from "./cards/colorCard";
 import { formatterVND } from "@/lib/utils";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 interface Props {
   products: Product;
 }
@@ -15,27 +16,40 @@ function ProductItem({ products }: Props) {
   const handlechangeColor = (index: number) => {
     setCurrentColor(index);
   };
+  const pathname = usePathname();
+  const isCategoryPage = pathname.includes("category");
 
   return (
     <div className="max-w-sm rounded relative w-full">
-      <Link href={"/"} className="relative w-full h-[50vh] block">
+      <Link
+        href={`${
+          isCategoryPage
+            ? `${products.category.id}/${products.id}?colorId=${products.productColors[0]?.color?.id}`
+            : `category/${products.category.id}/${products.id}?colorId=${products.productColors[0]?.color?.id}`
+        }    `}
+        className="relative w-full h-[300px] xl:h-[400px] block"
+      >
         <div className="absolute left-0 top-0 z-10 w-[50px] h-[45px] ">
           <Image
             src="/tag-sale.jpg"
             alt="tag-sale"
-            fill
+            width={300}
+            height={400}
             className="absolute z-0"
           />
           <p className="m-auto z-50 absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 text-white  text-[0.75rem]">
             {((products.discount / products.price) * 100).toFixed(0)}%
           </p>
         </div>
-        <Image
-          src={products?.productColors[currentColor]?.images[0]?.url}
-          alt={products.productColors[currentColor].images[0].url}
-          fill
-          className="rounded-xl object-cover"
-        />
+        <div className="border-2 border-black h-[100%]">
+          <Image
+            src={products?.productColors[currentColor]?.images[0]?.url}
+            alt={products.productColors[currentColor].images[0].url}
+            width={300}
+            height={400}
+            className="rounded-xl object-cover h-full"
+          />
+        </div>
       </Link>
       <div className="flex justify-start gap-x-2 my-4">
         {products?.productColors?.length > 0 &&
