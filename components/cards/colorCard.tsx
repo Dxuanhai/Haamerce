@@ -1,20 +1,22 @@
 import React from "react";
 
 interface Props {
-  color: string;
-  changeColor: () => void;
+  colorValue: string;
+
+  changeColor?: () => void;
   colorAcctive: boolean;
 }
 
-function ColorCard({ color, changeColor, colorAcctive }: Props) {
+function ColorCard({ colorValue, changeColor, colorAcctive }: Props) {
   return (
     <div
       onClick={changeColor}
-      className={`${
-        colorAcctive ? "w-8 " : ""
-      }h-5 w-5 rounded-full cursor-pointer`}
+      className={`${colorAcctive ? "w-14 md:w-8 " : ""} ${
+        colorValue === "#ffffff" &&
+        "border-[1px] dark:border-none border-slate-800 "
+      } h-10 w-10  md:h-5 md:w-5 rounded-full cursor-pointer`}
       style={{
-        backgroundColor: color,
+        backgroundColor: colorValue,
       }}
     ></div>
   );
