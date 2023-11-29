@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import ColorCard from "./cards/colorCard";
 import { formatterVND } from "@/lib/utils";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 interface Props {
   products: Product;
 }
@@ -17,15 +17,22 @@ function ProductItem({ products }: Props) {
     setCurrentColor(index);
   };
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  searchParams.get("color") || null;
   const isCategoryPage = pathname.includes("category");
+  const DetailProductPage = searchParams.get("color") || null;
 
   return (
     <div className="max-w-sm rounded relative w-full">
       <Link
         href={`${
           isCategoryPage
-            ? `${products.category.id}/${products.id}?colorId=${products.productColors[0]?.color?.id}`
-            : `category/${products.category.id}/${products.id}?colorId=${products.productColors[0]?.color?.id}`
+            ? `${
+                DetailProductPage
+                  ? `${products.id}?color=${products.productColors[0]?.color?.name}`
+                  : `${products.category.id}/${products.id}?color=${products.productColors[0]?.color?.name}`
+              }`
+            : `category/${products.category.id}/${products.id}?color=${products.productColors[0]?.color?.name}`
         }    `}
         className="relative w-full h-[300px] xl:h-[400px] block"
       >
@@ -41,7 +48,7 @@ function ProductItem({ products }: Props) {
             {((products.discount / products.price) * 100).toFixed(0)}%
           </p>
         </div>
-        <div className="border-2 border-black h-[100%]">
+        <div className=" h-[100%]">
           <Image
             src={products?.productColors[currentColor]?.images[0]?.url}
             alt={products.productColors[currentColor].images[0].url}
@@ -56,7 +63,7 @@ function ProductItem({ products }: Props) {
           products.productColors.map((item, index) => (
             <ColorCard
               key={item?.color?.id}
-              color={item?.color?.value}
+              colorValue={item?.color?.value}
               changeColor={() => handlechangeColor(index)}
               colorAcctive={currentColor === index ? true : false}
             />
