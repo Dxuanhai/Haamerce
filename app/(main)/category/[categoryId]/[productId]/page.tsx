@@ -13,7 +13,6 @@ interface Props {
 }
 async function page({ params }: Props) {
   const product = await getProduct(params.productId);
-  console.log("🚀  / page  / product:", product);
 
   const products = await getProducts({ categoryId: params.categoryId });
   return (

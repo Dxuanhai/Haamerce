@@ -133,7 +133,7 @@ function ProductItems({ product }: Props) {
           {dataSizes.map((data) => {
             const isColorMatch =
               product.productColors.length > 0 &&
-              product.productColors[0].sizes.some(
+              product.productColors[currentColor].sizes.some(
                 (item) => item.value === data.value
               );
             return (
