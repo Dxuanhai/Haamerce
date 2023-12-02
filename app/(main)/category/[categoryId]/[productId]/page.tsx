@@ -4,9 +4,9 @@ import { ArrowRightIcon } from "lucide-react";
 
 import getProduct from "@/actions/get-product";
 
-import ProductItems from "@/components/productItems";
 import ProductList from "@/components/productList";
 import getProducts from "@/actions/get-products";
+import ProductDetail from "@/components/productDetal";
 
 interface Props {
   params: { categoryId: string; productId: string };
@@ -24,7 +24,7 @@ async function page({ params }: Props) {
         <ArrowRightIcon className="h-4 w-4" />
         <p className="italic">{product.name}</p>
       </div>
-      <ProductItems product={product} />
+      <ProductDetail product={product} />
       <div className="mt-[60px]">
         <ProductList
           products={products}

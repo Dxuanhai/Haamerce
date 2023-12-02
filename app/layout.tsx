@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "@/components/modeToggle";
 import Container from "@/components/ui/container";
+import ToastProvider from "@/providers/toast-provider";
 
 const inter = Montserrat({ subsets: ["latin"], weight: ["400"] });
 
@@ -32,6 +33,7 @@ export default function RootLayout({
           defaultTheme="ligtt"
           storageKey="hanime-theme"
         >
+          <ToastProvider />
           <Container>
             <Navbar />
             {children}

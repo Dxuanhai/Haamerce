@@ -8,12 +8,13 @@ import { Button } from "./ui/button";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
+import useCart from "@/hooks/use-cart";
 
 interface Props {
   product: Product;
 }
 
-function ProductItems({ product }: Props) {
+function ProductDetail({ product }: Props) {
   const dataSizes = [
     {
       id: 1,
@@ -33,6 +34,7 @@ function ProductItems({ product }: Props) {
     },
   ];
 
+  const cart = useCart();
   const searchParams = useSearchParams();
   const selectedColor = searchParams.get("color");
   const selectedSize = searchParams.get("size");
@@ -44,6 +46,27 @@ function ProductItems({ product }: Props) {
 
   const [currentColor, setCurrentColor] = useState(indexColor);
   const [currentImage, setCurrentImage] = useState(0);
+  const [dataProduct, setDataProduct] = useState({
+    id: product.id,
+    name: product.name,
+    price: product.price,
+    discount: product.discount,
+    color: selectedColor || "",
+    size: selectedSize || "",
+    image: product.productColors[indexColor].images[0].url,
+  });
+
+  const handleChangeColor = (index: number) => {
+    setCurrentColor(index);
+    setDataProduct({
+      ...dataProduct,
+      color: product.productColors[index].color.name,
+      image: product.productColors[index].images[0].url,
+    });
+  };
+  const onAddToCart = () => {
+    cart.addItem(dataProduct);
+  };
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-20  ">
       <div className="grid grid-cols-12  gap-4  ">
@@ -117,7 +140,7 @@ function ProductItems({ product }: Props) {
                 href={`?color=${item.color.name}${
                   selectedSize ? `&size=${selectedSize}` : ""
                 }`}
-                onClick={() => setCurrentColor(index)}
+                onClick={() => handleChangeColor(index)}
               >
                 <ColorCard
                   colorValue={item?.color?.value}
@@ -140,6 +163,9 @@ function ProductItems({ product }: Props) {
               <Link
                 href={`?color=${selectedColor}&size=${data.value}`}
                 key={data.id}
+                onClick={() =>
+                  setDataProduct({ ...dataProduct, size: data.value })
+                }
                 className={` ${
                   !isColorMatch && "pointer-events-none"
                 }  py-2 px-6 border-2   rounded-lg cursor-pointer
@@ -175,7 +201,10 @@ function ProductItems({ product }: Props) {
           </div>
         </div>
 
-        <div className="flex gap-x-10 h-[60px] mt-10 md:mt-20 w-full">
+        <div
+          className="flex gap-x-10 h-[60px] mt-10 md:mt-20 w-full"
+          onClick={onAddToCart}
+        >
           <Button className="h-full px-10 text-base rounded-tl-2xl rounded-br-2xl dark:bg-slate-300 dark:hover:opacity-70">
             Add to card
           </Button>
@@ -191,4 +220,4 @@ function ProductItems({ product }: Props) {
   );
 }
 
-export default ProductItems;
+export default ProductDetail;
