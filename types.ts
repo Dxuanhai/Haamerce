@@ -15,6 +15,15 @@ export interface Product {
     sizes: Size[];
   }[];
 }
+export interface Order {
+  id: string;
+  name: string;
+  price: number;
+  discount: number;
+  color: string;
+  size: string;
+  image: string;
+}
 
 export interface Billboard {
   id: string;
