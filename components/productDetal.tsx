@@ -3,7 +3,7 @@ import { formatterVND } from "@/lib/utils";
 import { Product } from "@/types";
 import Image from "next/image";
 import React, { useState } from "react";
-import ColorCard from "./cards/colorCard";
+import ColorCard from "./items/colorCard";
 import { Button } from "./ui/button";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";

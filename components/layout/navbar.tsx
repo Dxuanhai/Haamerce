@@ -3,7 +3,7 @@ import Link from "next/link";
 import MainNav from "@/components/layout/main-nav";
 
 import getCategories from "@/actions/get-categories";
-import NavbarActions from "@/components/cards/navbarAction";
+import NavbarActions from "@/components/items/navbarAction";
 
 const Navbar = async () => {
   const categories = await getCategories();
