@@ -1,6 +1,6 @@
 import { Product } from "@/types";
 import React from "react";
-import ProductItem from "./productItem";
+import ProductItem from "./items/productItem";
 
 interface Props {
   title?: string;

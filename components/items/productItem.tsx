@@ -3,7 +3,7 @@
 import { Product } from "@/types";
 import Image from "next/image";
 import React, { useState } from "react";
-import ColorCard from "./cards/colorCard";
+import ColorCard from "./colorCard";
 import { formatterVND } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
