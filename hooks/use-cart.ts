@@ -3,13 +3,14 @@ import { toast } from "react-hot-toast";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 import { Order, Product } from "@/types";
-import { AlertTriangle } from "lucide-react";
 
 interface CartStore {
   items: Order[];
   addItem: (data: Order) => void;
   removeItem: (id: string) => void;
   removeAll: () => void;
+  increaseQuantity: (id: string) => void;
+  decreaseQuantity: (id: string) => void;
 }
 
 const useCart = create(
@@ -32,6 +33,23 @@ const useCart = create(
         toast.success("Item removed from cart.");
       },
       removeAll: () => set({ items: [] }),
+      increaseQuantity: (id: string) => {
+        set((state) => ({
+          items: state.items.map((item) =>
+            item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+          ),
+        }));
+      },
+
+      decreaseQuantity: (id: string) => {
+        set((state) => ({
+          items: state.items.map((item) =>
+            item.id === id && item.quantity > 1
+              ? { ...item, quantity: item.quantity - 1 }
+              : item
+          ),
+        }));
+      },
     }),
     {
       name: "cart-storage",

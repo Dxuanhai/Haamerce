@@ -23,6 +23,7 @@ export interface Order {
   color: string;
   size: string;
   image: string;
+  quantity: number;
 }
 
 export interface Billboard {

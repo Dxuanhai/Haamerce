@@ -6,6 +6,7 @@ import IconButton from "@/components/ui/icon-button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
 import { Order } from "@/types";
+import { Button } from "../ui/button";
 
 interface CartItemProps {
   data: Order;
@@ -18,6 +19,13 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
     cart.removeItem(data?.id);
   };
 
+  const Increase = () => {
+    cart.increaseQuantity(data.id);
+  };
+
+  const Decrease = () => {
+    cart.decreaseQuantity(data.id);
+  };
   return (
     <li className="flex py-6 border-b">
       <div className="relative h-36 w-24 rounded-md overflow-hidden md:h-64 md:w-48">
@@ -43,6 +51,25 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
           <div className="mt-1 flex text-sm">
             <p className="">{data.color}</p>
             <p className="ml-4 border-l border-gray-200 pl-4">{data.size}</p>
+          </div>
+          <div className="my-4 md:my-8 flex gap-x-4 items-center justify-start">
+            <div className="flex h-[30px]   items-center justify-start">
+              <Button
+                className="text-2xl dark:bg-slate-300 dark:hover:opacity-70"
+                onClick={() => Decrease()}
+              >
+                -
+              </Button>
+              <div className="h-full w-[74px] flex justify-center items-center text-base md:text-lg">
+                {data.quantity}
+              </div>
+              <Button
+                className="text-2xl dark:bg-slate-300 dark:hover:opacity-70"
+                onClick={() => Increase()}
+              >
+                +
+              </Button>
+            </div>
           </div>
           <Currency value={data.price - data.discount} />
         </div>

@@ -12,7 +12,10 @@ const Navbar = async () => {
     <div className="border-b">
       <div className="relative px-4 sm:px-6 lg:px-8 flex h-16 items-center">
         <Link href="/" className="ml-4 flex lg:ml-0 gap-x-2">
-          <p className="font-bold text-3xl dark:text-white">Haamerce</p>
+          <div
+            style={{ backgroundImage: `url(/logoHaamerce.png)` }}
+            className="bg-center bg-cover w-[200px] h-[50px]"
+          ></div>
         </Link>
         <MainNav data={categories} />
 
