@@ -9,6 +9,7 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 import useCart from "@/hooks/use-cart";
+import toast from "react-hot-toast";
 
 interface Props {
   product: Product;
@@ -46,6 +47,7 @@ function ProductDetail({ product }: Props) {
 
   const [currentColor, setCurrentColor] = useState(indexColor);
   const [currentImage, setCurrentImage] = useState(0);
+
   const [dataProduct, setDataProduct] = useState({
     id: product.id,
     name: product.name,
@@ -54,6 +56,7 @@ function ProductDetail({ product }: Props) {
     color: selectedColor || "",
     size: selectedSize || "",
     image: product.productColors[indexColor].images[0].url,
+    quantity: 1,
   });
 
   const handleChangeColor = (index: number) => {
@@ -65,7 +68,18 @@ function ProductDetail({ product }: Props) {
     });
   };
   const onAddToCart = () => {
-    cart.addItem(dataProduct);
+    if (!dataProduct.color || !dataProduct.size)
+      toast.error("Please choose a color and size");
+    else cart.addItem(dataProduct);
+  };
+
+  const Increase = () => {
+    setDataProduct({ ...dataProduct, quantity: dataProduct.quantity + 1 });
+  };
+  const Decrease = () => {
+    if (dataProduct.quantity > 1) {
+      setDataProduct({ ...dataProduct, quantity: dataProduct.quantity - 1 });
+    }
   };
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-20  ">
@@ -189,13 +203,19 @@ function ProductDetail({ product }: Props) {
         <div className="mt-8 flex gap-x-4 items-center justify-start">
           <b>Quantity: </b>
           <div className="flex h-[30px]   items-center justify-start">
-            <Button className="text-2xl dark:bg-slate-300 dark:hover:opacity-70">
+            <Button
+              className="text-2xl dark:bg-slate-300 dark:hover:opacity-70"
+              onClick={() => Decrease()}
+            >
               -
             </Button>
             <div className="h-full w-[80px] flex justify-center items-center text-lg">
-              1
+              {dataProduct.quantity}
             </div>
-            <Button className="text-2xl dark:bg-slate-300 dark:hover:opacity-70">
+            <Button
+              className="text-2xl dark:bg-slate-300 dark:hover:opacity-70"
+              onClick={() => Increase()}
+            >
               +
             </Button>
           </div>
