@@ -4,7 +4,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-
+import axios from "axios";
 import {
   Form,
   FormControl,
@@ -23,31 +23,91 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { District, Provinces, Ward } from "@/types";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   fullName: z.string().min(2).max(50),
-  phoneNumber: z.number().int().positive().min(10).max(10),
+  phoneNumber: z.string().min(10).max(10),
   email: z.string().email().min(10),
-  district: z.string().min(1),
-  province: z.string().min(1),
-  town: z.string().min(1),
   address: z.string().min(1),
+  ward: z.string().optional(),
+  district: z.string().optional(),
+  province: z.string().optional(),
 });
 
-function ShipmentDetails() {
+interface Props {
+  provinces: Provinces[];
+}
+
+function ShipmentDetails({ provinces }: Props) {
   const [loading, setLoading] = useState(false);
+  const [provinceName, setProvinceName] = useState("");
+  const [districtName, setDistrictName] = useState("");
+  const [wardName, setWardName] = useState("");
+
+  const [districts, setDistricts] = useState<District[]>();
+  const [wards, setWards] = useState<Ward[]>();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      fullName: "",
-    },
   });
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values);
   }
+  const onSelectProvince = (field: any) => async (value: string) => {
+    const province_select = provinces.filter(
+      (item) => item.province_id === value
+    );
+    if (province_select.length > 0)
+      setProvinceName(province_select[0]?.province_name);
+    try {
+      if (value) {
+        setLoading(true);
+        const url = `https://vapi.vnappmob.com/api/province/district/${value}`;
+        const res = await axios.get(url);
+        if (res?.data) {
+          setDistricts(res.data.results);
+        }
+      }
+    } catch (error: any) {
+      console.log("🚀  / onSelectProvince  / error:", error);
+      toast.error("Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  const onSelectDistrict = (field: any) => async (data: string) => {
+    const district_select =
+      districts && districts.filter((item) => item.district_id === data);
+    if (district_select && district_select.length > 0) {
+      setDistrictName(district_select[0]?.district_name);
+    }
+    try {
+      setLoading(true);
+
+      const res = await axios.get(
+        `https://vapi.vnappmob.com/api/province/ward/${data}`
+      );
+
+      if (res?.data) {
+        setWards(res.data.results);
+      }
+    } catch (error: any) {
+      toast.error("Something went wrong.");
+    } finally {
+      field.onChange();
+      setLoading(false);
+    }
+  };
+  const onSelectWard = (field: any) => async (data: string) => {
+    const selectWardName =
+      wards && wards.filter((item) => item.ward_id === data);
+    if (selectWardName && selectWardName.length > 0) {
+      setWardName(selectWardName[0]?.ward_name);
+    }
+  };
   return (
     <Form {...form}>
       <form
@@ -143,9 +203,8 @@ function ShipmentDetails() {
                   <FormLabel className="font-bold">Province</FormLabel>
                   <Select
                     disabled={loading}
-                    onValueChange={field.onChange}
+                    onValueChange={onSelectProvince(field)}
                     value={field.value}
-                    defaultValue={field.value}
                   >
                     <FormControl>
                       <SelectTrigger>
@@ -156,11 +215,16 @@ function ShipmentDetails() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {/* {categories?.map((category) => (
-                      <SelectItem key={category.id} value={category.id}>
-                        {category.name}
-                      </SelectItem>
-                    ))} */}
+                      {provinces &&
+                        provinces.length > 0 &&
+                        provinces?.map((item) => (
+                          <SelectItem
+                            key={item.province_id}
+                            value={item.province_id}
+                          >
+                            {item.province_name}
+                          </SelectItem>
+                        ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -176,7 +240,7 @@ function ShipmentDetails() {
                   <FormLabel className="font-bold">District</FormLabel>
                   <Select
                     disabled={loading}
-                    //onValueChange={onSelect(field)}
+                    onValueChange={onSelectDistrict(field)}
                     value={field.value}
                     defaultValue={field.value}
                   >
@@ -189,21 +253,16 @@ function ShipmentDetails() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {/* {colors?.map((color) => (
-                      <SelectItem
-                        key={color.id}
-                        value={color.id}
-                        className="block"
-                      >
-                        <div className=" flex items-center justify-start gap-x-2 ">
-                          <div
-                            style={{ backgroundColor: color.value }}
-                            className="h-6 w-10 rounded-full border  "
-                          ></div>
-                          <h3>{color.name}</h3>
-                        </div>
-                      </SelectItem>
-                    ))} */}
+                      {districts &&
+                        districts?.map((item) => (
+                          <SelectItem
+                            key={item.district_id}
+                            value={item.district_id}
+                            className="block"
+                          >
+                            {item.district_name}
+                          </SelectItem>
+                        ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -212,40 +271,36 @@ function ShipmentDetails() {
             />
             <FormField
               control={form.control}
-              name="town"
+              name="ward"
               render={({ field }) => (
                 <FormItem className="relative">
-                  <FormLabel className="font-bold">Town</FormLabel>
+                  <FormLabel className="font-bold">Ward</FormLabel>
                   <Select
                     disabled={loading}
-                    //onValueChange={onSelect(field)}
                     value={field.value}
+                    onValueChange={onSelectWard(field)}
                     defaultValue={field.value}
                   >
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue
                           defaultValue={field.value}
-                          placeholder="Select your Town"
+                          placeholder="Select your ward"
                         />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {/* {colors?.map((color) => (
-                      <SelectItem
-                        key={color.id}
-                        value={color.id}
-                        className="block"
-                      >
-                        <div className=" flex items-center justify-start gap-x-2 ">
-                          <div
-                            style={{ backgroundColor: color.value }}
-                            className="h-6 w-10 rounded-full border  "
-                          ></div>
-                          <h3>{color.name}</h3>
-                        </div>
-                      </SelectItem>
-                    ))} */}
+                      {wards &&
+                        wards.length > 0 &&
+                        wards?.map((item) => (
+                          <SelectItem
+                            key={item.ward_id}
+                            value={item.ward_id}
+                            className="block"
+                          >
+                            {item.ward_name}
+                          </SelectItem>
+                        ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
