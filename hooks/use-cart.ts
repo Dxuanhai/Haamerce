@@ -7,7 +7,7 @@ import { Order, Product } from "@/types";
 interface CartStore {
   items: Order[];
   addItem: (data: Order) => void;
-  removeItem: (id: string) => void;
+  removeItem: (id: string, size: string) => void;
   removeAll: () => void;
   increaseQuantity: (id: string) => void;
   decreaseQuantity: (id: string) => void;
@@ -19,17 +19,24 @@ const useCart = create(
       items: [],
       addItem: (data: Order) => {
         const currentItems = get().items;
-        const existingItem = currentItems.find((item) => item.id === data.id);
+        const existingItem = currentItems.find(
+          (item) =>
+            item.id === data.id &&
+            item.color === data.color &&
+            item.size === data.size
+        );
 
         if (existingItem) {
-          return toast("Item already in cart.");
+          return toast.error("Item already in cart.");
         }
 
         set({ items: [...get().items, data] });
         toast.success("Item added to cart.");
       },
-      removeItem: (id: string) => {
-        set({ items: [...get().items.filter((item) => item.id !== id)] });
+      removeItem: (id: string, size: string) => {
+        set({
+          items: [...get().items.filter((item) => item.id !== id)],
+        });
         toast.success("Item removed from cart.");
       },
       removeAll: () => set({ items: [] }),

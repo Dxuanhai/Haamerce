@@ -5,7 +5,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import ColorCard from "./items/colorCard";
 import { Button } from "./ui/button";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 import useCart from "@/hooks/use-cart";
@@ -36,6 +36,7 @@ function ProductDetail({ product }: Props) {
   ];
 
   const cart = useCart();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const selectedColor = searchParams.get("color");
   const selectedSize = searchParams.get("size");
@@ -68,9 +69,16 @@ function ProductDetail({ product }: Props) {
     });
   };
   const onAddToCart = () => {
-    if (!dataProduct.color || !dataProduct.size)
+    if (!dataProduct.color || !dataProduct.size) {
       toast.error("Please choose a color and size");
-    else cart.addItem(dataProduct);
+      return false;
+    } else {
+      cart.addItem(dataProduct);
+      return true;
+    }
+  };
+  const pay = () => {
+    if (onAddToCart()) router.push("/checkout");
   };
 
   const Increase = () => {
@@ -221,14 +229,15 @@ function ProductDetail({ product }: Props) {
           </div>
         </div>
 
-        <div
-          className="flex gap-x-10 h-[60px] mt-10 md:mt-20 w-full"
-          onClick={onAddToCart}
-        >
-          <Button className="h-full px-10 text-base rounded-tl-2xl rounded-br-2xl dark:bg-slate-300 dark:hover:opacity-70">
+        <div className="flex gap-x-10 h-[60px] mt-10 md:mt-20 w-full">
+          <Button
+            onClick={onAddToCart}
+            className="h-full px-10 text-base rounded-tl-2xl rounded-br-2xl dark:bg-slate-300 dark:hover:opacity-70"
+          >
             Add to card
           </Button>
           <Button
+            onClick={pay}
             variant="destructive"
             className="text-base h-full rounded-tl-2xl rounded-br-2xl dark:bg-[#EF4444] dark:hover:opacity-70"
           >
