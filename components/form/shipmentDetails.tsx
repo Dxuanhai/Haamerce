@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -25,6 +26,7 @@ import {
 } from "../ui/select";
 import { District, Provinces, Ward } from "@/types";
 import toast from "react-hot-toast";
+import useCart from "@/hooks/use-cart";
 
 const formSchema = z.object({
   fullName: z.string().min(2).max(50),
@@ -41,20 +43,50 @@ interface Props {
 }
 
 function ShipmentDetails({ provinces }: Props) {
+  const cart = useCart();
+  const router = useRouter();
+
   const [loading, setLoading] = useState(false);
   const [provinceName, setProvinceName] = useState("");
   const [districtName, setDistrictName] = useState("");
   const [wardName, setWardName] = useState("");
-
   const [districts, setDistricts] = useState<District[]>();
   const [wards, setWards] = useState<Ward[]>();
+
+  const totalItemOrder = cart.items.map((item) => {
+    return {
+      name: item.name,
+      color: item.color,
+      price: (item.price - item.discount) * item.quantity,
+      size: item.size,
+      quantity: item.quantity,
+    };
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      setLoading(true);
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/orders`;
+      await axios.post(url, {
+        ...values,
+        province: provinceName,
+        district: districtName,
+        ward: wardName,
+        products: totalItemOrder,
+      });
+      toast.success("Order was successfully");
+      form.reset();
+      cart.removeAll();
+      router.push("/");
+    } catch (error) {
+      toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   }
   const onSelectProvince = (field: any) => async (value: string) => {
     const province_select = provinces.filter(
