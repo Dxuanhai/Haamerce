@@ -71,7 +71,7 @@ function PaymentProducts() {
         <div className="flex justify-between items-center">
           <span>Total</span>
           <span className="text-2xl font-bold">
-            {formatterVND?.format(totalPrice - 35000)}
+            {formatterVND?.format(totalPrice + 35000)}
           </span>
         </div>
       </div>

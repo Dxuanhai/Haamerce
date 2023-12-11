@@ -7,13 +7,23 @@ import ProductList from "@/components/productList";
 import { Separator } from "@/components/ui/separator";
 import getBillboard from "@/actions/get-billboard";
 import Billboard from "@/components/ui/billboard";
+import Filterbar from "@/components/filters/filter-bar";
+import getColors from "@/actions/get-colors";
 
 interface Props {
   params: { categoryId: string };
+  searchParams: {
+    [key: string]: string[] | undefined;
+  };
 }
-async function page({ params }: Props) {
-  const products = await getProducts({ categoryId: params.categoryId });
-  const billboard = await getBillboard("6d23e6fe-b712-46da-afc3-667b941ea209");
+async function page({ params, searchParams }: Props) {
+  const selectedColors = searchParams.colors || undefined;
+  const products = await getProducts({
+    colors: selectedColors,
+    categoryId: params.categoryId,
+  });
+  const colorsData = await getColors();
+
   return (
     <section className="p-4 sm:p-6 lg:p-8 ">
       <div className="py-4 flex gap-x-2 items-center justify-start  font-bold">
@@ -24,8 +34,15 @@ async function page({ params }: Props) {
         {products[0]?.category?.name}
       </div>
       <Separator />
-      <Billboard data={billboard} />
-      <ProductList products={products} />
+
+      <div className="flex">
+        <Filterbar
+          data={colorsData}
+          queryString={selectedColors}
+          params={params}
+        />
+        <ProductList products={products} />
+      </div>
     </section>
   );
 }
