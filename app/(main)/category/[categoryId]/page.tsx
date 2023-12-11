@@ -33,7 +33,6 @@ async function page({ params, searchParams }: Props) {
         <ChevronRight className="h-4 w-4 " />
         {products[0]?.category?.name}
       </div>
-      <Separator />
 
       <div className="flex">
         <Filterbar

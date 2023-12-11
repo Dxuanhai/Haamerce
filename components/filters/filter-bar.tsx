@@ -37,7 +37,7 @@ function Filterbar({ data, queryString, params }: Props) {
   };
 
   return (
-    <div className=" w-[320px] border-r-2 p-[20px] dark:border-zinc-500">
+    <div className=" w-[270px] h-full rounded-lg border-r-2 p-[20px] dark:border-zinc-500 bg-neutral-100 bg-gradient-to-b  dark:from-neutral-950 dark:via-slate-700 dark:to-neutral-950 dark:text-zinc-300 text-slate-800 ">
       <div className="grid grid-cols-3 gap-2">
         {data &&
           data.length > 0 &&
@@ -51,8 +51,10 @@ function Filterbar({ data, queryString, params }: Props) {
           ))}
       </div>
       <Separator className="my-10" />
-      <Button>
-        <Link href={url}> Filter</Link>
+      <Button variant="ghost">
+        <Link href={url} className="tracking-widest">
+          Filter
+        </Link>
       </Button>
     </div>
   );
