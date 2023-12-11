@@ -23,7 +23,9 @@ async function page({ params }: Props) {
           <LucideHome className="h-6 w-6" />
         </Link>
         <ChevronRight className="h-4 w-4" />
-        <p className="font-bold">{product?.category?.name}</p>
+        <Link href={`/category/${params.categoryId}`} className="font-bold">
+          {product?.category?.name}
+        </Link>
         <ChevronRight className="h-4 w-4" />
         <p className="italic">{product.name}</p>
       </div>
