@@ -4,9 +4,6 @@ import React from "react";
 import { ChevronRight, LucideHome } from "lucide-react";
 
 import ProductList from "@/components/productList";
-import { Separator } from "@/components/ui/separator";
-import getBillboard from "@/actions/get-billboard";
-import Billboard from "@/components/ui/billboard";
 import Filterbar from "@/components/filters/filter-bar";
 import getColors from "@/actions/get-colors";
 
@@ -18,9 +15,13 @@ interface Props {
 }
 async function page({ params, searchParams }: Props) {
   const selectedColors = searchParams.colors || undefined;
+  const min = searchParams.min || undefined;
+  const max = searchParams.max || undefined;
   const products = await getProducts({
     colors: selectedColors,
     categoryId: params.categoryId,
+    min,
+    max,
   });
   const colorsData = await getColors();
 
