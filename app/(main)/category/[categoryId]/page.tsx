@@ -15,8 +15,8 @@ interface Props {
 }
 async function page({ params, searchParams }: Props) {
   const selectedColors = searchParams.colors || undefined;
-  const min = searchParams.min || undefined;
-  const max = searchParams.max || undefined;
+  const min = searchParams.min || ["0"];
+  const max = searchParams.max || ["10000000"];
   const products = await getProducts({
     colors: selectedColors,
     categoryId: params.categoryId,
