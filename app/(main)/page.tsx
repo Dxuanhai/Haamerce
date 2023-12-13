@@ -9,8 +9,11 @@ export const revalidate = 0;
 const HomePage = async () => {
   const productsSellers = await getProducts({
     isFeatured: true,
+    take: ["8"],
   });
-  const productsARRIVAL = await getProducts({});
+  const productsARRIVAL = await getProducts({
+    take: ["4"],
+  });
   const billboard_green = await getBillboard(
     "9056f5fe-9120-4e7c-a0a5-61dcdd2a07c1"
   );

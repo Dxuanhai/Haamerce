@@ -8,6 +8,8 @@ interface Query {
   colors?: string[] | undefined;
   min?: string[];
   max?: string[];
+  skip?: string[];
+  take?: string[];
   isFeatured?: boolean;
 }
 
@@ -18,8 +20,10 @@ const getProducts = async (query: Query): Promise<Product[]> => {
       categoryId: query.categoryId,
       colors: query.colors,
       isFeatured: query.isFeatured,
-      min: query.min || undefined,
-      max: query.max || undefined,
+      skip: query.skip,
+      take: query.take,
+      min: query.min,
+      max: query.max,
     },
   });
 

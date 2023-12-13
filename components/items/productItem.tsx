@@ -13,6 +13,8 @@ interface Props {
 
 function ProductItem({ products }: Props) {
   const [currentColor, setCurrentColor] = useState(0);
+  const [imageIndex, setImageIndex] = useState(0);
+
   const handlechangeColor = (index: number) => {
     setCurrentColor(index);
   };
@@ -50,13 +52,17 @@ function ProductItem({ products }: Props) {
             </p>
           </div>
         )}
-        <div className=" h-[100%]">
+        <div
+          className=" h-[100%] "
+          onMouseEnter={() => setImageIndex(1)}
+          onMouseLeave={() => setImageIndex(0)}
+        >
           <Image
-            src={products?.productColors[currentColor]?.images[0]?.url}
-            alt={products.productColors[currentColor].images[0].url}
+            src={products?.productColors[currentColor]?.images[imageIndex]?.url}
+            alt={products.productColors[currentColor].images[imageIndex].url}
             width={300}
             height={400}
-            className="rounded-xl object-cover h-full"
+            className="rounded-xl object-cover h-full "
           />
         </div>
       </Link>

@@ -10,6 +10,7 @@ import Link from "next/link";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 import useCart from "@/hooks/use-cart";
 import toast from "react-hot-toast";
+import ImageMagnifier from "./ImageMagnifier";
 
 interface Props {
   product: Product;
@@ -93,14 +94,10 @@ function ProductDetail({ product }: Props) {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-20  ">
       <div className="grid grid-cols-12  gap-4  ">
         <div className=" col-start-1 col-span-12 md:col-end-10   h-[600px] xl:h-[550px]">
-          <Image
-            src={
+          <ImageMagnifier
+            urlImage={
               product?.productColors[currentColor]?.images[currentImage]?.url
             }
-            alt="product"
-            width={400}
-            height={500}
-            className="h-full w-full object-fill rounded-md"
           />
         </div>
         <ScrollArea className="col-start-1 md:col-start-10 col-end-13">
