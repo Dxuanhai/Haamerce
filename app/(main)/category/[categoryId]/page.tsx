@@ -17,11 +17,16 @@ async function page({ params, searchParams }: Props) {
   const selectedColors = searchParams.colors || undefined;
   const min = searchParams.min || ["0"];
   const max = searchParams.max || ["10000000"];
+  const page = searchParams.page || ["1"];
+  const take = 8;
+  const skip = (Number(page) - 1) * Number(take);
   const products = await getProducts({
     colors: selectedColors,
     categoryId: params.categoryId,
     min,
     max,
+    skip: [skip.toString()],
+    take: [take.toString()],
   });
   const colorsData = await getColors();
 
@@ -43,6 +48,7 @@ async function page({ params, searchParams }: Props) {
         />
         <ProductList products={products} />
       </div>
+      <div className="w-full flex justify-center items-center my-4"></div>
     </section>
   );
 }
