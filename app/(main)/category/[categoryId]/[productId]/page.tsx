@@ -15,7 +15,11 @@ interface Props {
 async function page({ params }: Props) {
   const product = await getProduct(params.productId);
 
-  const products = await getProducts({ categoryId: params.categoryId });
+  const products = await getProducts({
+    categoryId: params.categoryId,
+    skip: ["0"],
+    take: ["4"],
+  });
   return (
     <section className="p-4 sm:p-6 lg:p-8">
       <div className="py-4 flex gap-x-2 items-center justify-start text-[10px] md:text-base">
@@ -23,11 +27,14 @@ async function page({ params }: Props) {
           <LucideHome className="h-6 w-6" />
         </Link>
         <ChevronRight className="h-4 w-4" />
-        <Link href={`/category/${params.categoryId}`} className="font-bold">
+        <Link
+          href={`/category/${params.categoryId}`}
+          className="font-bold text-base w-[80px]"
+        >
           {product?.category?.name}
         </Link>
         <ChevronRight className="h-4 w-4" />
-        <p className="italic">{product.name}</p>
+        <p className="italic text-sm">{product.name}</p>
       </div>
       <Separator />
       <div className="mt-[40px]">

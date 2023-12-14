@@ -134,12 +134,12 @@ function ProductDetail({ product }: Props) {
           <p className="font-bold text-4xl">
             {formatterVND.format(product?.price - product?.discount)}
           </p>
-          {product?.discount && (
+          {product?.discount !== 0 && (
             <del className="italic text-gray-500 text-2xl">
               {formatterVND.format(product?.price)}
             </del>
           )}
-          {product.discount && (
+          {product.discount !== 0 && (
             <span className="w-[60px] h-[20px] -translate-y-1/2 bg-orange-400 dark:bg-orange-700 flex justify-center items-center text-white">
               {((product.discount / product.price) * 100).toFixed(0)}%
             </span>

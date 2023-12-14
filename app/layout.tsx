@@ -8,6 +8,7 @@ import { ModeToggle } from "@/components/modeToggle";
 import Container from "@/components/ui/container";
 import ToastProvider from "@/providers/toast-provider";
 import Footer from "@/components/layout/footer";
+import Header from "@/components/layout/header";
 
 const inter = Montserrat({ subsets: ["latin"], weight: ["400"] });
 
@@ -36,7 +37,7 @@ export default function RootLayout({
         >
           <ToastProvider />
           <Container>
-            <Navbar />
+            <Header />
             {children}
 
             <Footer />
