@@ -29,7 +29,7 @@ async function page({ params }: Props) {
         <ChevronRight className="h-4 w-4" />
         <Link
           href={`/category/${params.categoryId}`}
-          className="font-bold text-base w-[80px]"
+          className="font-bold text-base w-[80px]  "
         >
           {product?.category?.name}
         </Link>
