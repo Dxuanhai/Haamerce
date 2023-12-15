@@ -27,6 +27,7 @@ import {
 import { District, Provinces, Ward } from "@/types";
 import toast from "react-hot-toast";
 import useCart from "@/hooks/use-cart";
+import useVoucher from "@/hooks/use-voucher";
 
 const formSchema = z.object({
   fullName: z.string().min(2).max(50),
@@ -44,6 +45,7 @@ interface Props {
 
 function ShipmentDetails({ provinces }: Props) {
   const cart = useCart();
+  const voucher = useVoucher();
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
@@ -77,10 +79,13 @@ function ShipmentDetails({ provinces }: Props) {
         district: districtName,
         ward: wardName,
         products: totalItemOrder,
+        voucher: voucher.voucher.price,
+        idGiftCode: voucher.voucher.idGiftCode,
       });
       toast.success("Order was successfully");
       form.reset();
       cart.removeAll();
+      voucher.cancelVoucher();
       router.push("/");
     } catch (error) {
       toast.error("Something went wrong");

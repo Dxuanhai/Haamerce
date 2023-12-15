@@ -2,10 +2,11 @@ import { create } from "zustand";
 import { toast } from "react-hot-toast";
 import { persist, createJSONStorage } from "zustand/middleware";
 
-import { Order, Product } from "@/types";
+import { Order } from "@/types";
 
 interface CartStore {
   items: Order[];
+
   addItem: (data: Order) => void;
   removeItem: (id: string, size: string) => void;
   removeAll: () => void;
