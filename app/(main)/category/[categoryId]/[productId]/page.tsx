@@ -16,7 +16,7 @@ async function page({ params }: Props) {
   const product = await getProduct(params.productId);
 
   const products = await getProducts({
-    categoryId: params.categoryId,
+    isFeatured: true,
     skip: ["0"],
     take: ["4"],
   });
@@ -41,10 +41,7 @@ async function page({ params }: Props) {
         <ProductDetail product={product} />
       </div>
       <div className="mt-[60px]">
-        <ProductList
-          products={products}
-          title={`${product.category.name} Category`}
-        />
+        <ProductList products={products} title="BEST SELLERS" />
       </div>
     </section>
   );
