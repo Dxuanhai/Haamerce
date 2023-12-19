@@ -93,7 +93,7 @@ function ProductDetail({ product }: Props) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-20  ">
       <div className="grid grid-cols-12  gap-4  ">
-        <div className=" col-start-1 col-span-12 md:col-end-10   h-[600px] xl:h-[550px]">
+        <div className=" col-start-1 col-span-12 md:col-end-10   h-[600px] ">
           <ImageMagnifier
             urlImage={
               product?.productColors[currentColor]?.images[currentImage]?.url

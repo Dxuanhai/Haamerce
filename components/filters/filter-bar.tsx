@@ -15,10 +15,10 @@ import { ChevronLeft, ChevronRight, ChevronsLeft } from "lucide-react";
 interface Props {
   data: Color[];
   queryString: string[] | undefined;
-  params: { categoryId: string };
+  id: string;
 }
 
-function Filterbar({ data, queryString, params }: Props) {
+function Filterbar({ data, queryString, id }: Props) {
   const router = useRouter();
 
   const [selectedColors, setSelectedColors] = useState<string[]>(
@@ -30,7 +30,7 @@ function Filterbar({ data, queryString, params }: Props) {
 
   const origin = useOrigin();
   const url = qs.stringifyUrl({
-    url: `${origin}/category/${params.categoryId}`,
+    url: `${origin}/category/${id}`,
     query: {
       colors: selectedColors,
       min: min.toString(),

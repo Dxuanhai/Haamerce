@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { ArrowRightIcon, ChevronRight, LucideHome } from "lucide-react";
-
+import type { Metadata, ResolvingMetadata } from "next";
 import getProduct from "@/actions/get-product";
 
 import ProductList from "@/components/productList";
@@ -10,10 +10,45 @@ import ProductDetail from "@/components/productDetal";
 import { Separator } from "@/components/ui/separator";
 
 interface Props {
-  params: { categoryId: string; productId: string };
+  params: { productId: string; categoryId: string };
+  searchParams: {
+    [key: string]: string[] | undefined;
+  };
 }
+
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+  const temp = params.productId.split(".html") ?? [];
+  const id = temp[0]?.split("_");
+
+  // fetch data
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/products/${id[id.length - 1]}`
+  ).then((res) => res.json());
+
+  return {
+    title: `Haamerce | ${res.name}`,
+
+    openGraph: {
+      title: `Haamerce | ${res.name}`,
+      description: ` ${res.name}`,
+      type: "website",
+      images: [
+        `https://github.com/Dxuanhai/Haamerce/blob/main/public/logoHaamerce.png?raw=true`,
+      ],
+    },
+  };
+}
+
 async function page({ params }: Props) {
-  const product = await getProduct(params.productId);
+  const temp = params.productId.split(".html") ?? [];
+  const productId = temp[0]?.split("_");
+  const temp2 = params.categoryId.split(".html") ?? [];
+  const categoryId = temp2[0]?.split("_");
+  const product = await getProduct(productId[productId.length - 1]);
 
   const products = await getProducts({
     isFeatured: true,
@@ -28,7 +63,7 @@ async function page({ params }: Props) {
         </Link>
         <ChevronRight className="h-4 w-4" />
         <Link
-          href={`/category/${params.categoryId}`}
+          href={`/category/${categoryId[categoryId.length - 1]}`}
           className="font-bold text-base w-[80px]  "
         >
           {product?.category?.name}

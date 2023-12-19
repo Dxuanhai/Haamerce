@@ -7,6 +7,7 @@ import ColorCard from "./colorCard";
 import { formatterVND } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
+import slugify from "slugify";
 interface Props {
   products: Product;
 }
@@ -31,10 +32,25 @@ function ProductItem({ products }: Props) {
           isCategoryPage
             ? `${
                 DetailProductPage
-                  ? `${products.id}?color=${products.productColors[0]?.color?.name}`
-                  : `${products.category.id}/${products.id}?color=${products.productColors[0]?.color?.name}`
+                  ? `${slugify(products.name, {
+                      locale: "vi",
+                      lower: true,
+                    })}_${products.id}.html?color=${
+                      products.productColors[0]?.color?.name
+                    }`
+                  : `${products.category.id}/${slugify(products.name, {
+                      locale: "vi",
+                      lower: true,
+                    })}_${products.id}.html?color=${
+                      products.productColors[0]?.color?.name
+                    }`
               }`
-            : `category/${products.category.id}/${products.id}?color=${products.productColors[0]?.color?.name}`
+            : `category/${products.category.id}/${slugify(products.name, {
+                locale: "vi",
+                lower: true,
+              })}_${products.id}.html?color=${
+                products.productColors[0]?.color?.name
+              }`
         }    `}
         className="relative w-full h-[300px] xl:h-[400px] block"
       >

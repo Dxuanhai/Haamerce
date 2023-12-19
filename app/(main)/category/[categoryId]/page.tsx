@@ -2,10 +2,10 @@ import getProducts from "@/actions/get-products";
 import Link from "next/link";
 import React from "react";
 import { ChevronRight, LucideHome } from "lucide-react";
-
 import ProductList from "@/components/productList";
 import Filterbar from "@/components/filters/filter-bar";
 import getColors from "@/actions/get-colors";
+import type { Metadata, ResolvingMetadata } from "next";
 
 interface Props {
   params: { categoryId: string };
@@ -13,7 +13,42 @@ interface Props {
     [key: string]: string[] | undefined;
   };
 }
+
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+  const temp = params.categoryId.split(".html") ?? [];
+  const id = temp[0]?.split("_");
+
+  // fetch data
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/categories/${id[id.length - 1]}`
+  ).then((res) => res.json());
+
+  return {
+    title: `Haamerce | ${res.name}`,
+    robots: {
+      index: false,
+      follow: true,
+      nocache: true,
+    },
+    openGraph: {
+      title: `Haamerce | ${res.name}`,
+      description: `Fashion store 1st at Viet Nam`,
+      type: "website",
+      images: [
+        `https://github.com/Dxuanhai/Haamerce/blob/main/public/logoHaamerce.png?raw=true`,
+      ],
+    },
+  };
+}
+
 async function page({ params, searchParams }: Props) {
+  const temp = params.categoryId.split(".html");
+  const id = temp[0].split("_");
+
   const selectedColors = searchParams.colors || undefined;
   const min = searchParams.min || ["0"];
   const max = searchParams.max || ["10000000"];
@@ -22,7 +57,7 @@ async function page({ params, searchParams }: Props) {
   const skip = (Number(page) - 1) * Number(take);
   const products = await getProducts({
     colors: selectedColors,
-    categoryId: params.categoryId,
+    categoryId: id[id.length - 1],
     min,
     max,
     skip: [skip.toString()],
@@ -44,7 +79,7 @@ async function page({ params, searchParams }: Props) {
         <Filterbar
           data={colorsData}
           queryString={selectedColors}
-          params={params}
+          id={id[id.length - 1]}
         />
         <ProductList products={products} />
       </div>

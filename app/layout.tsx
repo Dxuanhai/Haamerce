@@ -14,7 +14,7 @@ const inter = Montserrat({ subsets: ["latin"], weight: ["400"] });
 
 export const metadata: Metadata = {
   title: "Haamerce",
-  description: "E-commerce website",
+  description: `Fashion store 1st at Viet Nam`,
 };
 
 export default function RootLayout({
