@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
-import getCategories from "./actions/get-categories";
-import { Category } from "./types";
+import getCategories from "@/actions/get-categories";
+import { Category } from "../types";
 
 export default async function sitemap() {
   const categories: Category[] = await getCategories();
