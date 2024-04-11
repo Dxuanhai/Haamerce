@@ -14,23 +14,29 @@ interface Query {
 }
 
 const getProducts = async (query: Query): Promise<Product[]> => {
-  const url = qs.stringifyUrl({
-    url: URL,
-    query: {
-      categoryId: query.categoryId,
-      colors: query.colors,
-      isFeatured: query.isFeatured,
-      skip: query.skip,
-      take: query.take,
-      min: query.min,
-      max: query.max,
-    },
-  });
-
   try {
+    const url = qs.stringifyUrl({
+      url: URL,
+      query: {
+        categoryId: query.categoryId,
+        colors: query.colors,
+        isFeatured: query.isFeatured,
+        skip: query.skip,
+        take: query.take,
+        min: query.min,
+        max: query.max,
+      },
+    });
+
     const res = await fetch(url);
-    return res.json();
+    if (res.ok) {
+      return res.json();
+    } else {
+      // Xử lý lỗi, ví dụ trả về một mảng rỗng hoặc ném ra một lỗi mới
+      throw new Error(`Failed to fetch products`);
+    }
   } catch (error) {
+    console.error(error);
     throw error;
   }
 };
