@@ -5,43 +5,11 @@ import { ChevronRight, LucideHome } from "lucide-react";
 import ProductList from "@/components/productList";
 import Filterbar from "@/components/filters/filter-bar";
 import getColors from "@/actions/get-colors";
-import type { Metadata, ResolvingMetadata } from "next";
 
 interface Props {
   params: { categoryId: string };
   searchParams: {
     [key: string]: string[] | undefined;
-  };
-}
-
-export async function generateMetadata(
-  { params, searchParams }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  // read route params
-  const temp = params.categoryId.split(".html") ?? [];
-  const id = temp[0]?.split("_");
-
-  // fetch data
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/categories/${id[id.length - 1]}`
-  ).then((res) => res.json());
-
-  return {
-    title: `Haamerce | ${res.name}`,
-    robots: {
-      index: false,
-      follow: true,
-      nocache: true,
-    },
-    openGraph: {
-      title: `Haamerce | ${res.name}`,
-      description: `Fashion store 1st at Viet Nam`,
-      type: "website",
-      images: [
-        `https://github.com/Dxuanhai/Haamerce/blob/main/public/logoHaamerce.png?raw=true`,
-      ],
-    },
   };
 }
 

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import React from "react";
 import { ArrowRightIcon, ChevronRight, LucideHome } from "lucide-react";
-import type { Metadata, ResolvingMetadata } from "next";
 import getProduct from "@/actions/get-product";
 
 import ProductList from "@/components/productList";
@@ -13,33 +12,6 @@ interface Props {
   params: { productId: string; categoryId: string };
   searchParams: {
     [key: string]: string[] | undefined;
-  };
-}
-
-export async function generateMetadata(
-  { params, searchParams }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  // read route params
-  const temp = params.productId.split(".html") ?? [];
-  const id = temp[0]?.split("_");
-
-  // fetch data
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/products/${id[id.length - 1]}`
-  ).then((res) => res.json());
-
-  return {
-    title: `Haamerce | ${res.name}`,
-
-    openGraph: {
-      title: `Haamerce | ${res.name}`,
-      description: ` ${res.name}`,
-      type: "website",
-      images: [
-        `https://github.com/Dxuanhai/Haamerce/blob/main/public/logoHaamerce.png?raw=true`,
-      ],
-    },
   };
 }
 
