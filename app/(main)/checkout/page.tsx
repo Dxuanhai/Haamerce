@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronRight, ShoppingCart } from "lucide-react";
+import Link from "next/link";
 
 import Container from "@/components/ui/container";
 import ShipmentDetails from "@/components/form/shipmentDetails";
@@ -12,12 +13,19 @@ import getProvinces from "@/actions/get-provinces";
 
 const CheckoutPage = () => {
   const [provinces, setProvinces] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
     const fetchProvinces = async () => {
-      const data = await getProvinces();
-      setProvinces(data.results);
+      try {
+        const data = await getProvinces();
+        setProvinces(data.results);
+      } catch (error) {
+        console.error("Error fetching provinces:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchProvinces();
   }, []);
@@ -25,6 +33,16 @@ const CheckoutPage = () => {
   const handleBackToCart = () => {
     router.push("/cart");
   };
+
+  if (isLoading) {
+    return (
+      <Container>
+        <div className="py-8 flex justify-center">
+          <p>Loading...</p>
+        </div>
+      </Container>
+    );
+  }
 
   return (
     <Container>
