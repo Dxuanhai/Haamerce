@@ -1,7 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { Category } from "@/types";
-import { on } from "events";
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -22,9 +21,17 @@ function MainNavMB({ data }: Props) {
   }));
   return (
     <>
-      <Menu className="h-9 w-9 md:hidden" onClick={() => setOnNav(!onNav)} />
+      <Menu
+        className="h-9 w-9 ml-2 md:hidden"
+        onClick={() => setOnNav(!onNav)}
+      />
       {onNav && (
-        <nav className="py-[20px] absolute top-12 -right-4 z-20  md:hidden flex flex-col items-center gap-y-2 w-[100vw]  bg-neutral-100 bg-gradient-to-b  dark:from-neutral-950 dark:via-slate-700 dark:to-neutral-950 dark:text-zinc-300 text-slate-800 ">
+        <nav
+          className={cn(
+            "py-[20px] absolute top-12 -right-4 z-20 md:hidden flex flex-col items-center gap-y-2 w-[100vw] bg-neutral-100 bg-gradient-to-b dark:from-neutral-950 dark:via-slate-700 dark:to-neutral-950 dark:text-zinc-300 text-slate-800",
+            "slide-down"
+          )}
+        >
           {routes.map((route) => (
             <Link
               key={route.href}
@@ -39,6 +46,30 @@ function MainNavMB({ data }: Props) {
               {route.label}
             </Link>
           ))}
+          <Link
+            href="#"
+            className={cn(
+              "text-2xl font-medium transition-colors hover:opacity-30"
+            )}
+          >
+            Support
+          </Link>
+          <Link
+            href="#"
+            className={cn(
+              "text-2xl first-letter:font-medium transition-colors hover:opacity-30"
+            )}
+          >
+            Contact
+          </Link>
+          <Link
+            href="#"
+            className={cn(
+              "text-2xl font-medium transition-colors hover:opacity-30"
+            )}
+          >
+            Recruitment
+          </Link>
         </nav>
       )}
     </>

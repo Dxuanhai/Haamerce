@@ -35,6 +35,24 @@ const MainNav: React.FC<MainNavProps> = ({ data }) => {
           {route.label}
         </Link>
       ))}
+      <Link
+        href="#"
+        className={cn("text-lg font-medium transition-colors hover:opacity-30")}
+      >
+        Support
+      </Link>
+      <Link
+        href="#"
+        className={cn("text-lg font-medium transition-colors hover:opacity-30")}
+      >
+        Contact
+      </Link>
+      <Link
+        href="#"
+        className={cn("text-lg font-medium transition-colors hover:opacity-30")}
+      >
+        Recruitment
+      </Link>
     </nav>
   );
 };

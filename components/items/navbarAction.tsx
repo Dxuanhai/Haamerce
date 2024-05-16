@@ -1,5 +1,5 @@
 "use client";
-
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { ShoppingBag } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -32,6 +32,12 @@ const NavbarActions = () => {
           {cart.items.length}
         </span>
       </Button>
+      <SignedOut>
+        <SignInButton />
+      </SignedOut>
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
     </div>
   );
 };
