@@ -24,8 +24,6 @@ function Filterbar({ data, queryString, id }: Props) {
   const [selectedColors, setSelectedColors] = useState<string[]>(
     queryString || []
   );
-  const [min, setMin] = useState(0);
-  const [max, setMax] = useState(10000000);
   const [onFilterBar, setOnFilterBar] = useState(true);
 
   const origin = useOrigin();
@@ -33,8 +31,6 @@ function Filterbar({ data, queryString, id }: Props) {
     url: `${origin}/category/${id}`,
     query: {
       colors: selectedColors,
-      min: min.toString(),
-      max: max.toString(),
     },
   });
 
@@ -46,9 +42,6 @@ function Filterbar({ data, queryString, id }: Props) {
     }
   };
   const handleFilter = () => {
-    if (min >= max) {
-      return toast.error("Min price must be less than max price");
-    }
     router.push(url);
   };
   const toggleHiddenBar = () => {
@@ -92,26 +85,7 @@ function Filterbar({ data, queryString, id }: Props) {
             ))}
         </div>
         <Separator className="my-10" />
-        <div className="flex flex-col gap-y-2">
-          <div className="flex justify-between items-center gap-x-2 w-full">
-            <span>MIN</span>
-            <Input
-              onChange={(e: any) => setMin(parseInt(e.target.value))}
-              type="number"
-              placeholder="0 ₫"
-              className="w-2/3 focus-visible:ring-transparent"
-            />
-          </div>
-          <div className="flex justify-between items-center gap-x-2 w-full">
-            <span>MAX</span>
-            <Input
-              onChange={(e: any) => setMax(parseInt(e.target.value))}
-              placeholder="10.000.000 ₫"
-              type="number"
-              className="w-2/3 focus-visible:ring-transparent"
-            />
-          </div>
-        </div>
+
         <Separator className="my-10" />
         <Button
           onClick={() => handleFilter()}

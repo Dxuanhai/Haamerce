@@ -12,7 +12,7 @@ function ColorFilter({ data, handleSelectedColor, colorsSelect }: Props) {
     <div
       onClick={() => handleSelectedColor(data.name)}
       className={`h-[50px] w-[50px] rounded-md cursor-pointer hover:opacity-50 ${
-        isSelected && "border-4 border-blue-400"
+        isSelected && "border-4 border-blue-400 opacity-40"
       }`}
       style={{ backgroundColor: `${data.value}` }}
     ></div>

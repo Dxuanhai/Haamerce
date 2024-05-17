@@ -20,7 +20,7 @@ const MainNav: React.FC<MainNavProps> = ({ data }) => {
   }));
 
   return (
-    <nav className="mx-6 hidden md:flex items-center space-x-4 lg:space-x-6">
+    <nav className="mx-6 hidden xl:flex items-center space-x-4 lg:space-x-6">
       {routes.map((route) => (
         <Link
           key={route.href}
@@ -35,24 +35,6 @@ const MainNav: React.FC<MainNavProps> = ({ data }) => {
           {route.label}
         </Link>
       ))}
-      <Link
-        href="#"
-        className={cn("text-lg font-medium transition-colors hover:opacity-30")}
-      >
-        Support
-      </Link>
-      <Link
-        href="#"
-        className={cn("text-lg font-medium transition-colors hover:opacity-30")}
-      >
-        Contact
-      </Link>
-      <Link
-        href="#"
-        className={cn("text-lg font-medium transition-colors hover:opacity-30")}
-      >
-        Recruitment
-      </Link>
     </nav>
   );
 };

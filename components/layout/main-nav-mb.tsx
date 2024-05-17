@@ -22,7 +22,7 @@ function MainNavMB({ data }: Props) {
   return (
     <>
       <Menu
-        className="h-9 w-9 ml-2 md:hidden"
+        className="h-9 w-9 ml-2 xl:hidden"
         onClick={() => setOnNav(!onNav)}
       />
       {onNav && (
@@ -46,30 +46,6 @@ function MainNavMB({ data }: Props) {
               {route.label}
             </Link>
           ))}
-          <Link
-            href="#"
-            className={cn(
-              "text-2xl font-medium transition-colors hover:opacity-30"
-            )}
-          >
-            Support
-          </Link>
-          <Link
-            href="#"
-            className={cn(
-              "text-2xl first-letter:font-medium transition-colors hover:opacity-30"
-            )}
-          >
-            Contact
-          </Link>
-          <Link
-            href="#"
-            className={cn(
-              "text-2xl font-medium transition-colors hover:opacity-30"
-            )}
-          >
-            Recruitment
-          </Link>
         </nav>
       )}
     </>

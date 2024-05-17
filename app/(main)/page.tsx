@@ -1,4 +1,4 @@
-import getBillboard from "@/actions/get-billboard";
+import { getBillboards } from "@/actions/billboards";
 import getProducts from "@/actions/get-products";
 import ProductList from "@/components/productList";
 
@@ -17,16 +17,13 @@ const HomePage = async () => {
   const productsARRIVAL = await getProducts({
     take: ["4"],
   });
-  const billboard_green = await getBillboard(
-    "9056f5fe-9120-4e7c-a0a5-61dcdd2a07c1"
-  );
-  const billboard2 = await getBillboard("062dafd8-bff6-407f-a292-5cbd516d79c2");
+  const dataBillboards = await getBillboards();
 
   return (
     <div className="space-y-10 pb-10">
-      <Billboard data={billboard2} />
+      <Billboard data={dataBillboards} />
       <ProductList products={productsSellers} title="BEST SELLERS" />
-      <Billboard data={billboard_green} />
+      <Billboard data={dataBillboards} />
       <ProductList products={productsARRIVAL} title="NEW ARRIVAL" />
     </div>
   );
