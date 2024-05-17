@@ -28,7 +28,7 @@ export default function RootLayout({
         <body
           className={cn(
             inter.className,
-            "bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-slate-200 via-white to-slate-200 dark:from-neutral-950 dark:via-slate-700 dark:to-neutral-950 dark:text-zinc-300 text-slate-800"
+            "bg-slate-50 dark:bg-[#262629] dark:text-zinc-300 text-slate-800"
           )}
         >
           <ThemeProvider
@@ -40,9 +40,8 @@ export default function RootLayout({
             <Container>
               <Header />
               {children}
-
-              <Footer />
             </Container>
+            <Footer />
             <div className="fixed bottom-5 right-4">
               <ModeToggle />
             </div>

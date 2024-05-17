@@ -28,7 +28,7 @@ function MainNavMB({ data }: Props) {
       {onNav && (
         <nav
           className={cn(
-            "py-[20px] absolute top-12 -right-4 z-20 md:hidden flex flex-col items-center gap-y-2 w-[100vw] bg-neutral-100 bg-gradient-to-b dark:from-neutral-950 dark:via-slate-700 dark:to-neutral-950 dark:text-zinc-300 text-slate-800",
+            "py-[20px] absolute top-12 -right-4 z-20 xl:hidden flex flex-col items-center gap-y-2 w-[100vw] bg-slate-50 dark:bg-[#262629]  dark:text-zinc-300 text-slate-800",
             "slide-down"
           )}
         >

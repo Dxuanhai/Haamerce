@@ -57,16 +57,16 @@ function Filterbar({ data, queryString, id }: Props) {
     <>
       {onFilterBar && (
         <div
-          className="block md:hidden z-100  fixed top-1/2 left-0 rounded-tr-lg rounded-br-lg   -translate-y-1/2 bg-neutral-100 bg-gradient-to-b  dark:from-neutral-950 dark:via-slate-700 dark:to-neutral-950 dark:text-zinc-300 text-slate-800 
+          className="block md:hidden z-100  fixed top-1/2 left-0 rounded-tr-lg rounded-br-lg   -translate-y-1/2 bg-neutral-100 bg-gradient-to-b  dark:bg-[#1d1d20] dark:text-zinc-300 text-slate-800 
       "
           onClick={() => toggleApperBar()}
         >
           <ChevronRight className="w-[30px] h-[80px] " />
         </div>
       )}
-      <div className=" filter-bar  hidden md:block absolute md:relative z-20 w-[220px]  md:w-[270px]  md:h-full rounded-lg border-r-2 p-[20px] dark:border-zinc-500 bg-neutral-100 bg-gradient-to-b  dark:from-neutral-950 dark:via-slate-700 dark:to-neutral-950 dark:text-zinc-300 text-slate-800 ">
+      <div className=" filter-bar  hidden md:block absolute md:relative z-20 w-[220px]  md:w-[270px]  md:h-full rounded-lg border-r-2 p-[20px] dark:border-zinc-500 bg-neutral-100 bg-gradient-to-b  dark:bg-[#1d1d20] dark:text-zinc-300 text-slate-800 ">
         <div
-          className=" filter-bar-nav  block md:hidden  absolute top-1/2 -right-7 rounded-tr-lg rounded-br-lg   -translate-y-1/2 bg-neutral-100 bg-gradient-to-b  dark:from-neutral-950 dark:via-slate-700 dark:to-neutral-950 dark:text-zinc-300 text-slate-800 
+          className=" filter-bar-nav  block md:hidden  absolute top-1/2 -right-7 rounded-tr-lg rounded-br-lg   -translate-y-1/2 bg-neutral-100 bg-gradient-to-b  dark:bg-[#1d1d20] dark:text-zinc-300 text-slate-800 
       "
           onClick={() => toggleHiddenBar()}
         >

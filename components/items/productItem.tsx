@@ -94,7 +94,7 @@ function ProductItem({ products }: Props) {
           ))}
       </div>
       <div className="h-[100px] flex flex-col justify-between">
-        <div className="text-base tracking-wider">{products?.name}</div>
+        <div className="text-base tracking-wide">{products?.name}</div>
         <div className="flex gap-x-4">
           <p className="font-bold text-base">
             {formatterVND.format(products?.price - products?.discount)}

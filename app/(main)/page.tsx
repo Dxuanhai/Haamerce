@@ -22,9 +22,9 @@ const HomePage = async () => {
   return (
     <div className="space-y-10 pb-10">
       <Billboard data={dataBillboards} />
-      <ProductList products={productsSellers} title="BEST SELLERS" />
+      <ProductList products={productsSellers} title="BÁN CHẠY NHẤT" />
       <Billboard data={dataBillboards} />
-      <ProductList products={productsARRIVAL} title="NEW ARRIVAL" />
+      <ProductList products={productsARRIVAL} title="HÀNG MỚI VỀ" />
     </div>
   );
 };

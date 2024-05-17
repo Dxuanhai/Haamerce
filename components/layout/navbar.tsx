@@ -8,7 +8,7 @@ const Navbar = async () => {
   const categories = await getCategories();
 
   return (
-    <div className=" flex justify-between items-center w-full relative z-auto ">
+    <div className=" flex justify-between items-center w-full h-full  z-auto ">
       <MainNav data={categories} />
       <NavbarActions />
       <MainNavMB data={categories} />
