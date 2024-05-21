@@ -9,7 +9,6 @@ import { useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -27,6 +26,7 @@ import {
 import { District, Provinces, Ward } from "@/types";
 import toast from "react-hot-toast";
 import useCart from "@/hooks/use-cart";
+import useUserInfo from "@/hooks/use-userInfo";
 import useVoucher from "@/hooks/use-voucher";
 
 const formSchema = z.object({
@@ -45,7 +45,8 @@ interface Props {
 
 function ShipmentDetails({ provinces }: Props) {
   const cart = useCart();
-  const voucher = useVoucher();
+  const userInfo = useUserInfo();
+
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
@@ -67,28 +68,42 @@ function ShipmentDetails({ provinces }: Props) {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      fullName: userInfo.userInfo.fullName || "",
+      address: userInfo.userInfo.address || "",
+
+      email: userInfo.userInfo.email || "",
+      phoneNumber: userInfo.userInfo.phoneNumber || "",
+    },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setLoading(true);
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/orders`;
-      await axios.post(url, {
-        ...values,
-        province: provinceName,
-        district: districtName,
+      // const url = `${process.env.NEXT_PUBLIC_API_URL}/orders`;
+      // await axios.post(url, {
+      //   ...values,
+      //   province: provinceName,
+      //   district: districtName,
+      //   ward: wardName,
+      //   products: totalItemOrder,
+      //   voucher: voucher.voucher.price,
+      //   idGiftCode: voucher.voucher.idGiftCode,
+      // });
+      // toast.success("Order was successfully");
+      userInfo.add({
+        fullName: values.fullName,
+        phoneNumber: values.phoneNumber,
+        email: values.email,
+        address: values.address,
         ward: wardName,
-        products: totalItemOrder,
-        voucher: voucher.voucher.price,
-        idGiftCode: voucher.voucher.idGiftCode,
+        district: districtName,
+        province: provinceName,
       });
-      toast.success("Order was successfully");
       form.reset();
-      cart.removeAll();
-      voucher.cancelVoucher();
-      router.push("/");
+      router.push("/checkout/method");
     } catch (error) {
-      toast.error("Something went wrong");
+      toast.error("Đã xảy ra lỗi");
     } finally {
       setLoading(false);
     }
@@ -110,7 +125,7 @@ function ShipmentDetails({ provinces }: Props) {
       }
     } catch (error: any) {
       console.log("🚀  / onSelectProvince  / error:", error);
-      toast.error("Something went wrong.");
+      toast.error("Đã xảy ra lỗi.");
     } finally {
       setLoading(false);
     }
@@ -132,7 +147,7 @@ function ShipmentDetails({ provinces }: Props) {
         setWards(res.data.results);
       }
     } catch (error: any) {
-      toast.error("Something went wrong.");
+      toast.error("Đã xảy ra lỗi.");
     } finally {
       field.onChange();
       setLoading(false);
@@ -157,11 +172,11 @@ function ShipmentDetails({ provinces }: Props) {
             name="fullName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-bold">Full Name</FormLabel>
+                <FormLabel className="font-bold">Họ và tên</FormLabel>
                 <FormControl>
                   <Input
                     disabled={loading}
-                    placeholder="Enter your full name"
+                    placeholder="Nhập họ và tên của bạn"
                     {...field}
                   />
                 </FormControl>
@@ -198,7 +213,7 @@ function ShipmentDetails({ provinces }: Props) {
                 name="phoneNumber"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="font-bold">Phone Number</FormLabel>
+                    <FormLabel className="font-bold">Số điện thoại</FormLabel>
                     <FormControl>
                       <Input
                         type="text"
@@ -218,12 +233,12 @@ function ShipmentDetails({ provinces }: Props) {
             name="address"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-bold">Address</FormLabel>
+                <FormLabel className="font-bold">Địa chỉ</FormLabel>
                 <FormControl>
                   <Input
                     type="text"
                     disabled={loading}
-                    placeholder="Enter your address"
+                    placeholder="Địa chỉ"
                     {...field}
                   />
                 </FormControl>
@@ -237,7 +252,7 @@ function ShipmentDetails({ provinces }: Props) {
               name="province"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="font-bold">Province</FormLabel>
+                  <FormLabel className="font-bold">Thành phố/ tỉnh</FormLabel>
                   <Select
                     disabled={loading}
                     onValueChange={onSelectProvince(field)}
@@ -247,7 +262,7 @@ function ShipmentDetails({ provinces }: Props) {
                       <SelectTrigger>
                         <SelectValue
                           defaultValue={field.value}
-                          placeholder="Select a Province"
+                          placeholder="Chọn Thành phố / tỉnh của bạn"
                         />
                       </SelectTrigger>
                     </FormControl>
@@ -274,7 +289,7 @@ function ShipmentDetails({ provinces }: Props) {
               name="district"
               render={({ field }) => (
                 <FormItem className="relative">
-                  <FormLabel className="font-bold">District</FormLabel>
+                  <FormLabel className="font-bold">Quận/ huyện</FormLabel>
                   <Select
                     disabled={loading}
                     onValueChange={onSelectDistrict(field)}
@@ -285,7 +300,7 @@ function ShipmentDetails({ provinces }: Props) {
                       <SelectTrigger>
                         <SelectValue
                           defaultValue={field.value}
-                          placeholder="Select your district"
+                          placeholder="Chọn Thành Quận/ huyện của bạn"
                         />
                       </SelectTrigger>
                     </FormControl>
@@ -311,7 +326,7 @@ function ShipmentDetails({ provinces }: Props) {
               name="ward"
               render={({ field }) => (
                 <FormItem className="relative">
-                  <FormLabel className="font-bold">Ward</FormLabel>
+                  <FormLabel className="font-bold">Thị xã</FormLabel>
                   <Select
                     disabled={loading}
                     value={field.value}
@@ -322,7 +337,7 @@ function ShipmentDetails({ provinces }: Props) {
                       <SelectTrigger>
                         <SelectValue
                           defaultValue={field.value}
-                          placeholder="Select your ward"
+                          placeholder="chọn thị xã của bạn"
                         />
                       </SelectTrigger>
                     </FormControl>
@@ -347,11 +362,11 @@ function ShipmentDetails({ provinces }: Props) {
           </div>
           <Button
             disabled={loading}
-            className="ml-auto mt-4 text-base "
+            className="ml-auto mt-4 text-base dark:bg-slate-50 py-6 hover:opacity-70 "
             type="submit"
             variant="default"
           >
-            Pay right now
+            Chọn phương thức thanh toán
           </Button>
         </div>
       </form>

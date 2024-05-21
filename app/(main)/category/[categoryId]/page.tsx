@@ -5,6 +5,7 @@ import { ChevronRight, LucideHome } from "lucide-react";
 import ProductList from "@/components/productList";
 import Filterbar from "@/components/filters/filter-bar";
 import getColors from "@/actions/get-colors";
+import { Separator } from "@/components/ui/separator";
 
 interface Props {
   params: { categoryId: string };
@@ -35,14 +36,14 @@ async function page({ params, searchParams }: Props) {
 
   return (
     <section className="p-4 sm:p-6 lg:p-8 ">
-      <div className="py-4 flex gap-x-2 items-center justify-start  font-bold">
+      <div className="pb-8 flex gap-x-4 items-center justify-start text-sm md:text-xl">
         <Link href="/" className="font-bold">
           <LucideHome className="h-6 w-6" />
         </Link>
-        <ChevronRight className="h-4 w-4 " />
-        {products[0]?.category?.name}
+        <ChevronRight className="h-4 w-4" />
+        <p className="cursor-pointer">{products[0]?.category?.name}</p>
       </div>
-
+      <Separator />
       <div className="flex">
         <Filterbar
           data={colorsData}

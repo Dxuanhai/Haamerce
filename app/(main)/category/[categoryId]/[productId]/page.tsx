@@ -29,15 +29,12 @@ async function page({ params }: Props) {
   });
   return (
     <section className="p-4 sm:p-6 lg:p-8">
-      <div className="py-4 flex gap-x-2 items-center justify-start text-[10px] md:text-base">
+      <div className="pb-8 flex gap-x-2 items-center justify-start text-[10px] md:text-base">
         <Link href="/" className="font-bold">
           <LucideHome className="h-6 w-6" />
         </Link>
         <ChevronRight className="h-4 w-4" />
-        <Link
-          href={`/category/${categoryId[categoryId.length - 1]}`}
-          className="font-bold text-base w-[80px]  "
-        >
+        <Link href={`/cate  1]}`} className="font-bold text-base w-[80px]  ">
           {product?.category?.name}
         </Link>
         <ChevronRight className="h-4 w-4" />

@@ -25,6 +25,15 @@ export interface Order {
   image: string;
   quantity: number;
 }
+export interface UserInfo {
+  fullName: string;
+  phoneNumber: string;
+  email: string;
+  address: string;
+  ward?: string | undefined;
+  district?: string | undefined;
+  province?: string | undefined;
+}
 
 export interface Billboard {
   id: string;

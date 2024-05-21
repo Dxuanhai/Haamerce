@@ -2,16 +2,16 @@ import { create } from "zustand";
 import { toast } from "react-hot-toast";
 import { persist, createJSONStorage } from "zustand/middleware";
 
-import { Order } from "@/types";
+import { Order} from "@/types";
 
 interface CartStore {
   items: Order[];
 
   addItem: (data: Order) => void;
-  removeItem: (id: string, size: string) => void;
+  removeItem: (id: string, color: string, size: string) => void;
   removeAll: () => void;
-  increaseQuantity: (id: string) => void;
-  decreaseQuantity: (id: string) => void;
+  increaseQuantity: (id: string, color: string, size: string) => void;
+  decreaseQuantity: (id: string, color: string, size: string) => void;
 }
 
 const useCart = create(
@@ -28,34 +28,47 @@ const useCart = create(
         );
 
         if (existingItem) {
-          return toast.error("Item already in cart.");
+          return toast.error("Sản phẩm đã được thêm vào.");
         }
 
         set({ items: [...get().items, data] });
-        toast.success("Item added to cart.");
+        toast.success("Thêm sản phẩm thành công.");
       },
-      removeItem: (id: string, size: string) => {
+      removeItem: (id: string, color: string, size: string) => {
         set({
-          items: [...get().items.filter((item) => item.id !== id)],
+          // Filter out the item that matches all three criteria
+          items: get().items.filter(
+            (item) =>
+              !(item.id === id && item.color === color && item.size === size)
+          ),
         });
-        toast.success("Item removed from cart.");
+
+        toast.success("Sản phẩm đã được xóa khỏi giỏ hàng.");
       },
+
       removeAll: () => set({ items: [] }),
-      increaseQuantity: (id: string) => {
+      increaseQuantity: (id: string, color: string, size: string) => {
         set((state) => ({
           items: state.items.map((item) =>
-            item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+            item.id === id && item.color === color && item.size === size
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
           ),
         }));
       },
 
-      decreaseQuantity: (id: string) => {
+      decreaseQuantity: (id: string, color: string, size: string) => {
         set((state) => ({
-          items: state.items.map((item) =>
-            item.id === id && item.quantity > 1
-              ? { ...item, quantity: item.quantity - 1 }
-              : item
-          ),
+          items: state.items
+            .map((item) =>
+              item.id === id &&
+              item.color === color &&
+              item.size === size &&
+              item.quantity > 1
+                ? { ...item, quantity: item.quantity - 1 }
+                : item
+            )
+            .filter((item) => item.quantity > 0), // Remove items with quantity 0
         }));
       },
     }),

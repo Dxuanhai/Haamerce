@@ -27,7 +27,7 @@ const MainNav: React.FC<MainNavProps> = ({ data }) => {
     <>
       {isMenuOpen && (
         <div
-          className="absolute top-full left-0 w-full h-[440px] py-10 bg-slate-50 dark:bg-[#262629] menu-dropdown flex"
+          className="absolute top-full left-0 px-12 w-full h-[440px] py-10 bg-slate-50 dark:bg-[#262629] menu-dropdown flex"
           onMouseLeave={() => setIsMenuOpen(false)}
         >
           <div className="flex-grow-0 flex-shrink-0 w-3/12 mr-6">

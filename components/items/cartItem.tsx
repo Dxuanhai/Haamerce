@@ -16,15 +16,15 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
   const cart = useCart();
 
   const onRemove = () => {
-    cart.removeItem(data?.id, data?.size);
+    cart.removeItem(data?.id, data?.color, data?.size);
   };
 
   const Increase = () => {
-    cart.increaseQuantity(data.id);
+    cart.increaseQuantity(data?.id, data?.color, data?.size);
   };
 
   const Decrease = () => {
-    cart.decreaseQuantity(data.id);
+    cart.decreaseQuantity(data?.id, data?.color, data?.size);
   };
   return (
     <li className="flex py-6 border-b">
@@ -55,23 +55,23 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
           <div className="my-4 md:my-8 flex gap-x-4 items-center justify-start">
             <div className="flex h-[30px]   items-center justify-start">
               <Button
-                className="text-2xl dark:bg-slate-300 dark:hover:opacity-70"
+                className="text-2xl dark:bg-[#18181b] dark:hover:opacity-70 text-white"
                 onClick={() => Decrease()}
               >
                 -
               </Button>
-              <div className="h-full w-[74px] flex justify-center items-center text-base md:text-lg">
+              <div className="h-full w-[74px] flex justify-center items-center text-base md:text-lg ">
                 {data.quantity}
               </div>
               <Button
-                className="text-2xl dark:bg-slate-300 dark:hover:opacity-70"
+                className="text-2xl dark:bg-[#18181b] dark:hover:opacity-70 text-white"
                 onClick={() => Increase()}
               >
                 +
               </Button>
             </div>
           </div>
-          <Currency value={data.price - data.discount} />
+          <Currency value={(data.price - data.discount) * data.quantity} />
         </div>
       </div>
     </li>

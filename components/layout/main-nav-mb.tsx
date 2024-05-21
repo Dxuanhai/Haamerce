@@ -22,7 +22,7 @@ function MainNavMB({ data }: Props) {
   return (
     <>
       <Menu
-        className="h-9 w-9 ml-2 xl:hidden"
+        className="h-9 w-9 ml-auto xl:hidden"
         onClick={() => setOnNav(!onNav)}
       />
       {onNav && (

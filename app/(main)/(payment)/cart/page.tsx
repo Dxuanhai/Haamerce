@@ -26,11 +26,11 @@ const CartPage = () => {
     <div className="light:bg-white ">
       <Container>
         <div className="px-4 py-16 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold ">Shopping Cart</h1>
+          <h1 className="text-3xl font-bold ">Giỏ hàng</h1>
           <div className="mt-12 lg:grid lg:grid-cols-12 lg:items-start gap-x-12">
             <div className="lg:col-span-7">
               {cart.items.length === 0 && (
-                <p className="">No items added to cart.</p>
+                <p className="">Chưa có sản phẩm nào trong giỏ hàng.</p>
               )}
               <ul>
                 {cart.items.map((item) => (

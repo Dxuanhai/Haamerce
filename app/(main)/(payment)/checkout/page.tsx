@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ChevronRight, ShoppingCart } from "lucide-react";
-import Link from "next/link";
+import { ChevronRight, ShoppingBag } from "lucide-react";
 
 import Container from "@/components/ui/container";
 import ShipmentDetails from "@/components/form/shipmentDetails";
@@ -46,16 +45,25 @@ const CheckoutPage = () => {
 
   return (
     <Container>
-      <div className="py-8 flex gap-x-2 items-center justify-start text-sm md:text-base">
+      <div className="py-8 flex gap-x-4 items-center justify-center text-sm md:text-xl px-8 md:px-0">
         <button
           onClick={handleBackToCart}
           className="inline-flex items-center gap-2"
         >
-          <ShoppingCart className="h-5 w-5" />
-          <span>Back to Cart</span>
+          <ShoppingBag className="h-6 w-6" />
+          <span>TRỞ VỀ GIỎ HÀNG</span>
         </button>
         <ChevronRight className="h-4 w-4" />
-        <p className="font-bold">Shipment details</p>
+        <p
+          className="cursor-pointer font-bold"
+          onClick={() => router.push("/checkout")}
+        >
+          CHI TIẾT
+        </p>
+        <ChevronRight className="h-4 w-4" />
+        <p className="">THANH TOÁN</p>
+        <ChevronRight className="h-4 w-4" />
+        <p className="">HOÀN THÀNH</p>
       </div>
       <Separator />
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8">

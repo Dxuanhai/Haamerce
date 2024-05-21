@@ -13,18 +13,18 @@ const Footer = () => {
       <Container>
         <div className="py-[50px] ">
           <div className=" container mx-auto 2xl:w-[1280px]  px-4">
-            <div className="flex flex-col gap-y-6  md:flex-row ">
-              <div className="w-1/2  md:flex justify-start flex-col gap-y-2  ">
+            <div className="flex flex-col gap-y-12  md:flex-row ">
+              <div className="w-full md:w-1/2  md:flex justify-start flex-col gap-y-4  ">
                 <h2 className="font-bold text-[32px] dark:text-white">
                   Haamerce
                 </h2>
                 <h3 className="mb-2 flex justify-start gap-x-2">
-                  <p className="font-bold">🏠 Địa chỉ: </p>
-                  số 9x Đường xx, Bình An, Dĩ An, Bình Dương
+                  <span className="font-bold">🏠 Địa chỉ: </span>
+                  <span>số 9x Đường xx, xx, xxxxxxx, xxx</span>
                 </h3>
                 <h3 className="mb-2 flex justify-start gap-x-2">
-                  <p className="font-bold">💌 Email:</p>
-                  Haxxxxxx@gmail.com
+                  <span className="font-bold">💌 Email:</span>
+                  <span>Haxxxxxx@gmail.com</span>
                 </h3>
                 <h3 className="mb-2 flex justify-start gap-x-2">
                   <p className="font-bold"> 📞 Tel: </p>

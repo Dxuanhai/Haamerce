@@ -25,7 +25,7 @@ function PaymentProducts() {
         `${process.env.NEXT_PUBLIC_API_URL}/vouchers/new?code=${giftCode}`
       );
       if (res.data.isActive === false) {
-        toast.error("Gift code is used already");
+        toast.error("Mã giảm giá đã được sử dụng");
         return;
       }
       setDataVoucher(res.data.discount);
@@ -33,7 +33,7 @@ function PaymentProducts() {
     } catch (error) {
       setDataVoucher(0);
       voucher.cancelVoucher();
-      toast.error("Gift code incorrect");
+      toast.error("Mã giảm giá không hợp lệ");
     }
   };
   const handleCancleGiftCode = () => {
@@ -81,37 +81,37 @@ function PaymentProducts() {
       <div className=" flex gap-x-2">
         <Input
           type="text"
-          placeholder="Enter your voucher"
+          placeholder="Mã giảm giá"
           onChange={(e: any) => setGiftCode(e.target.value)}
         />
 
         {dataVoucher !== 0 ? (
           <Button variant="destructive" onClick={() => handleCancleGiftCode()}>
-            Cancel
+            Hủy
           </Button>
         ) : (
-          <Button onClick={() => handleCheckGiftCode()}>use</Button>
+          <Button onClick={() => handleCheckGiftCode()}>sử dụng</Button>
         )}
       </div>
       <Separator className="my-4" />
       <div className="flex flex-col gap-y-2">
         <div className="flex justify-between items-center">
-          <span>Subtotal</span>
+          <span>Tạm tính</span>
           <span>{formatterVND?.format(totalPrice)}</span>
         </div>
         <div className="flex justify-between items-center text-sm  text-red-600">
-          <b>Shipping fee</b>
+          <b>Phí vận chuyển</b>
           <b>{formatterVND?.format(35000)}</b>
         </div>
         {dataVoucher !== 0 && (
           <div className="flex justify-between items-center text-sm text-green-600">
-            <b>Voucher</b>
+            <b>Mã giảm giá</b>
             <b>{formatterVND?.format(dataVoucher)}</b>
           </div>
         )}
         <Separator className="my-4" />
         <div className="flex justify-between items-center">
-          <span>Total</span>
+          <span>Tổng cộng</span>
           <span className="text-2xl font-bold">
             {formatterVND?.format(totalPrice + 35000 - dataVoucher)}
           </span>
