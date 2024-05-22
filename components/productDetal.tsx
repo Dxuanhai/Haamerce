@@ -190,7 +190,7 @@ function ProductDetail({ product }: Props) {
                 }  py-2 px-6 border-2   rounded-lg cursor-pointer
                 ${
                   data.value === selectedSize
-                    ? " border-2 border-zinc-900 dark:border-zinc-100 "
+                    ? " border-2 border-zinc-900 dark:border-[#c59f60]"
                     : "dark:border-zinc-500  border-zinc-200"
                 }`}
               >
@@ -209,7 +209,7 @@ function ProductDetail({ product }: Props) {
           <b>Quantity: </b>
           <div className="flex h-[30px]   items-center justify-start">
             <Button
-              className="text-2xl dark:bg-slate-300 dark:hover:opacity-70"
+              className="text-2xl  dark:hover:opacity-70"
               onClick={() => Decrease()}
             >
               -
@@ -218,7 +218,7 @@ function ProductDetail({ product }: Props) {
               {dataProduct.quantity}
             </div>
             <Button
-              className="text-2xl dark:bg-slate-300 dark:hover:opacity-70"
+              className="text-2xl  dark:hover:opacity-70"
               onClick={() => Increase()}
             >
               +
@@ -229,16 +229,16 @@ function ProductDetail({ product }: Props) {
         <div className="flex gap-x-10 h-[60px] mt-10 md:mt-20 w-full">
           <Button
             onClick={onAddToCart}
-            className="h-full px-10 text-base rounded-tl-2xl rounded-br-2xl dark:bg-slate-300 dark:hover:opacity-70"
+            className="h-full px-10 font-bold  text-base rounded-tl-2xl rounded-br-2xl  dark:hover:opacity-70"
           >
-            Add to card
+            THÊM VÀO GIỎ
           </Button>
           <Button
             onClick={pay}
             variant="destructive"
-            className="text-base h-full rounded-tl-2xl rounded-br-2xl dark:bg-[#EF4444] dark:hover:opacity-70"
+            className="text-base font-bold h-full rounded-tl-2xl rounded-br-2xl dark:bg-[#db924b] dark:text-[#211308] dark:hover:opacity-70"
           >
-            Buy now!
+            MUA NGAY
           </Button>
         </div>
       </div>

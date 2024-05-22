@@ -80,17 +80,7 @@ function ShipmentDetails({ provinces }: Props) {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setLoading(true);
-      // const url = `${process.env.NEXT_PUBLIC_API_URL}/orders`;
-      // await axios.post(url, {
-      //   ...values,
-      //   province: provinceName,
-      //   district: districtName,
-      //   ward: wardName,
-      //   products: totalItemOrder,
-      //   voucher: voucher.voucher.price,
-      //   idGiftCode: voucher.voucher.idGiftCode,
-      // });
-      // toast.success("Order was successfully");
+
       userInfo.add({
         fullName: values.fullName,
         phoneNumber: values.phoneNumber,
@@ -362,7 +352,7 @@ function ShipmentDetails({ provinces }: Props) {
           </div>
           <Button
             disabled={loading}
-            className="ml-auto mt-4 text-base dark:bg-slate-50 py-6 hover:opacity-70 "
+            className="ml-auto mt-4 text-base font-bold dark:bg-[#db924b] dark:text-[#211308] py-6 hover:opacity-70 "
             type="submit"
             variant="default"
           >

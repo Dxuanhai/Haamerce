@@ -16,6 +16,7 @@ const useUserInfo = create(
         phoneNumber: "",
         email: "",
         address: "",
+        paymentMethod: "",
         ward: "",
         district: "",
         province: "",

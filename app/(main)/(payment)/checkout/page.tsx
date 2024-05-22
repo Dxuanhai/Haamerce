@@ -50,7 +50,7 @@ const CheckoutPage = () => {
           onClick={handleBackToCart}
           className="inline-flex items-center gap-2"
         >
-          <ShoppingBag className="h-6 w-6" />
+          <ShoppingBag className="h-6 w-6 dark:text-[#c59f60]" />
           <span>TRỞ VỀ GIỎ HÀNG</span>
         </button>
         <ChevronRight className="h-4 w-4" />

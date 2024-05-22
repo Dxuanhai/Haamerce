@@ -6,6 +6,7 @@ import ProductList from "@/components/productList";
 import Filterbar from "@/components/filters/filter-bar";
 import getColors from "@/actions/get-colors";
 import { Separator } from "@/components/ui/separator";
+import { getCategory } from "@/actions/get-categories";
 
 interface Props {
   params: { categoryId: string };
@@ -32,6 +33,8 @@ async function page({ params, searchParams }: Props) {
     skip: [skip.toString()],
     take: [take.toString()],
   });
+  const category = await getCategory(id[id.length - 1]);
+
   const colorsData = await getColors();
 
   return (
@@ -41,9 +44,9 @@ async function page({ params, searchParams }: Props) {
           <LucideHome className="h-6 w-6" />
         </Link>
         <ChevronRight className="h-4 w-4" />
-        <p className="cursor-pointer">{products[0]?.category?.name}</p>
+        <p className="cursor-pointer">{category?.name}</p>
       </div>
-      <Separator />
+
       <div className="flex">
         <Filterbar
           data={colorsData}

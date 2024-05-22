@@ -30,6 +30,7 @@ export interface UserInfo {
   phoneNumber: string;
   email: string;
   address: string;
+  paymentMethod?: string;
   ward?: string | undefined;
   district?: string | undefined;
   province?: string | undefined;

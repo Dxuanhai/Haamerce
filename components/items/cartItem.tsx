@@ -39,8 +39,9 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
       <div className="relative ml-4 flex flex-1 flex-col justify-between sm:ml-6">
         <div className="absolute z-10 right-0 top-0">
           <IconButton
+            className="dark:bg-[#1d131c]"
             onClick={onRemove}
-            icon={<X size={15} className="text-black" />}
+            icon={<X size={15} className="text-black dark:text-[#c59f60]  " />}
           />
         </div>
         <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
@@ -50,12 +51,14 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
 
           <div className="mt-1 flex text-sm">
             <p className="">{data.color}</p>
-            <p className="ml-4 border-l border-gray-200 pl-4">{data.size}</p>
+            <p className="ml-4 border-l  dark:border-[#c59f60] pl-4">
+              {data.size}
+            </p>
           </div>
           <div className="my-4 md:my-8 flex gap-x-4 items-center justify-start">
             <div className="flex h-[30px]   items-center justify-start">
               <Button
-                className="text-2xl dark:bg-[#18181b] dark:hover:opacity-70 text-white"
+                className="text-2xl dark:hover:opacity-70 "
                 onClick={() => Decrease()}
               >
                 -
@@ -64,7 +67,7 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
                 {data.quantity}
               </div>
               <Button
-                className="text-2xl dark:bg-[#18181b] dark:hover:opacity-70 text-white"
+                className="text-2xl  dark:hover:opacity-70 "
                 onClick={() => Increase()}
               >
                 +

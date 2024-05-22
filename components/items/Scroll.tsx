@@ -35,7 +35,7 @@ const Scroll = ({ classname }: Props) => {
         "h-[40px]",
         "items-center",
         "justify-center",
-        "text-slate-700 dark:text-white",
+        "text-slate-700 dark:text-[#c59f60]",
         "bg-white dark:bg-[#020817]",
         "fixed",
 

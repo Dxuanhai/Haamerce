@@ -28,7 +28,7 @@ export default function RootLayout({
         <body
           className={cn(
             inter.className,
-            "bg-slate-50 dark:bg-[#262629] dark:text-zinc-300 text-slate-800"
+            "bg-slate-50 dark:bg-[#20161f] dark:text-[#c59f60] text-[slate-800]"
           )}
         >
           <ThemeProvider

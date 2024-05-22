@@ -9,13 +9,13 @@ import {
 } from "react-icons/bi";
 const Footer = () => {
   return (
-    <footer className="md:py-8 border-t  bg-white dark:bg-[#1d1d20] ">
+    <footer className="md:py-8 border-t  bg-white dark:bg-[#120c12] ">
       <Container>
         <div className="py-[50px] ">
           <div className=" container mx-auto 2xl:w-[1280px]  px-4">
             <div className="flex flex-col gap-y-12  md:flex-row ">
               <div className="w-full md:w-1/2  md:flex justify-start flex-col gap-y-4  ">
-                <h2 className="font-bold text-[32px] dark:text-white">
+                <h2 className="font-bold text-[32px] dark:text-[#c59f60]">
                   Haamerce
                 </h2>
                 <h3 className="mb-2 flex justify-start gap-x-2">
@@ -39,7 +39,7 @@ const Footer = () => {
                       />
                       <BiLogoFacebook
                         size={48}
-                        className="translate-y-[100%] group-hover:translate-y-[0] absolute bottom-0 h-full transition-all text-white"
+                        className="translate-y-[100%] group-hover:translate-y-[0] absolute bottom-0 h-full transition-all "
                       />
                     </div>
                   </div>
@@ -51,7 +51,7 @@ const Footer = () => {
                       />
                       <FaXTwitter
                         size={48}
-                        className="translate-y-[100%] group-hover:translate-y-[0] absolute bottom-0 h-full transition-all text-white"
+                        className="translate-y-[100%] group-hover:translate-y-[0] absolute bottom-0 h-full transition-all "
                       />
                     </div>
                   </div>
@@ -63,7 +63,7 @@ const Footer = () => {
                       />
                       <BiLogoYoutube
                         size={48}
-                        className="translate-y-[100%] group-hover:translate-y-[0] absolute bottom-0 h-full transition-all text-white"
+                        className="translate-y-[100%] group-hover:translate-y-[0] absolute bottom-0 h-full transition-all "
                       />
                     </div>
                   </div>
@@ -75,7 +75,7 @@ const Footer = () => {
                       />
                       <BiLogoInstagram
                         size={48}
-                        className="translate-y-[100%] group-hover:translate-y-[0] absolute bottom-0 h-full transition-all text-white"
+                        className="translate-y-[100%] group-hover:translate-y-[0] absolute bottom-0 h-full transition-all "
                       />
                     </div>
                   </div>

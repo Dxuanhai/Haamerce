@@ -27,8 +27,8 @@ const NavbarActions = () => {
         onClick={() => router.push("/cart")}
         className="flex items-center rounded-full bg-black px-4 py-2"
       >
-        <ShoppingBag size={20} color="white" />
-        <span className="ml-2 text-sm font-medium text-white">
+        <ShoppingBag size={20} className="dark:text-[#c59f60]" />
+        <span className="ml-2 text-sm font-medium dark:text-[#c59f60]">
           {cart.items.length}
         </span>
       </Button>

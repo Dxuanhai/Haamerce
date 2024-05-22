@@ -7,7 +7,7 @@ import { ChevronRight, ShoppingBag } from "lucide-react";
 import Container from "@/components/ui/container";
 import PaymentProducts from "@/components/paymentProducts";
 import { Separator } from "@/components/ui/separator";
-import getProvinces from "@/actions/get-provinces";
+
 import PaymentMethod from "@/components/items/PaymentMethod";
 
 const PaymentMethodPage = () => {
@@ -24,7 +24,7 @@ const PaymentMethodPage = () => {
           onClick={handleBackToCart}
           className="inline-flex items-center gap-2"
         >
-          <ShoppingBag className="h-6 w-6" />
+          <ShoppingBag className="h-6 w-6 dark:text-[#c59f60]" />
           <span>TRỞ VỀ GIỎ HÀNG</span>
         </button>
         <ChevronRight className="h-4 w-4" />

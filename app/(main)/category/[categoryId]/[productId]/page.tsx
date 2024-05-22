@@ -45,7 +45,7 @@ async function page({ params }: Props) {
         <ProductDetail product={product} />
       </div>
       <div className="mt-[60px]">
-        <ProductList products={products} title="BEST SELLERS" />
+        <ProductList products={products} title="BÁN CHẠY NHẤT" />
       </div>
     </section>
   );
