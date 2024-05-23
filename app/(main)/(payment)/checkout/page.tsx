@@ -35,11 +35,9 @@ const CheckoutPage = () => {
 
   if (isLoading) {
     return (
-      <Container>
-        <div className="py-8 flex justify-center">
-          <p>Loading...</p>
-        </div>
-      </Container>
+      <div className="h-screen w-full flex items-center justify-center">
+        <span className="loading loading-bars loading-lg"></span>
+      </div>
     );
   }
 

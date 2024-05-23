@@ -40,7 +40,7 @@ const Summary = () => {
       <Button
         onClick={() => router.push("/checkout")}
         disabled={items.length === 0}
-        className="w-full mt-6"
+        className="w-full mt-6 dark:bg-[#db924b] dark:text-[#211308]"
       >
         THANH TOÁN
       </Button>

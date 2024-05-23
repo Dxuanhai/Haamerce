@@ -102,11 +102,20 @@ function PaymentProducts() {
           onChange={(e: any) => setGiftCode(e.target.value)}
         />
         {dataVoucher !== 0 ? (
-          <Button variant="destructive" onClick={() => handleCancleGiftCode()}>
+          <Button
+            variant="destructive"
+            onClick={() => handleCancleGiftCode()}
+            className="dark:bg-[#db924b] dark:text-[#211308]"
+          >
             Hủy
           </Button>
         ) : (
-          <Button onClick={() => handleCheckGiftCode()}>sử dụng</Button>
+          <Button
+            onClick={() => handleCheckGiftCode()}
+            className="dark:bg-[#db924b] dark:text-[#211308]"
+          >
+            sử dụng
+          </Button>
         )}
       </div>
       <Separator className="my-4" />

@@ -12,6 +12,7 @@ export const revalidate = 0;
 
 const CartPage = () => {
   const [isMounted, setIsMounted] = useState(false);
+
   const cart = useCart();
 
   useEffect(() => {
@@ -33,6 +34,7 @@ const CartPage = () => {
                 <p className="">Chưa có sản phẩm nào trong giỏ hàng.</p>
               )}
               <ul>
+                {/* @ts-ignore */}
                 {cart.items.map((item) => (
                   <CartItem key={item.id} data={item} />
                 ))}

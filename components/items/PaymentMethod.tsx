@@ -52,6 +52,13 @@ const PaymentMethod = () => {
       console.error("Error during payment:", error);
     }
   };
+  const handleCOD = async () => {
+    userInfo.add({
+      ...userInfo.userInfo,
+      paymentMethod: "COD",
+    });
+    router.push("/checkout/method/complete");
+  };
   return (
     <div className="flex flex-col gap-y-20">
       <h2 className="font-bold text-3xl">PHƯƠNG THỨC THANH TOÁN</h2>
@@ -66,6 +73,7 @@ const PaymentMethod = () => {
                 onCheckedChange={() =>
                   field.onChange("THANH TOÁN ONLINE VÍ MOMO")
                 }
+                className=""
               />
             )}
           />
@@ -80,10 +88,12 @@ const PaymentMethod = () => {
         {selectedMethod === "THANH TOÁN ONLINE VÍ MOMO" && (
           <div
             onClick={() => handleMOMO()}
-            className="transition-opacity duration-500 ease-in-out"
+            className="transition-opacity duration-500 ease-in-out "
             style={{ opacity: showButton ? 1 : 0 }}
           >
-            <Button className="font-bold px-8 ml-8">TIẾP TỤC</Button>
+            <Button className="font-bold px-8 ml-8 dark:bg-[#db924b] dark:text-[#211308]">
+              TIẾP TỤC
+            </Button>
           </div>
         )}
 
@@ -106,7 +116,9 @@ const PaymentMethod = () => {
             className="transition-opacity duration-500 ease-in-out"
             style={{ opacity: showButton ? 1 : 0 }}
           >
-            <Button className="font-bold px-8 ml-8">TIẾP TỤC</Button>
+            <Button className="font-bold px-8 ml-8 dark:bg-[#db924b] dark:text-[#211308]">
+              TIẾP TỤC
+            </Button>
           </div>
         )}
 
@@ -128,10 +140,13 @@ const PaymentMethod = () => {
         </div>
         {selectedMethod === "THANH TOÁN KHI NHẬN HÀNG (COD)" && (
           <div
+            onClick={() => handleCOD()}
             className="transition-opacity duration-500 ease-in-out"
             style={{ opacity: showButton ? 1 : 0 }}
           >
-            <Button className="font-bold px-8 ml-8">TIẾP TỤC</Button>
+            <Button className="font-bold px-8 ml-8 dark:bg-[#db924b] dark:text-[#211308]">
+              TIẾP TỤC
+            </Button>
           </div>
         )}
       </div>

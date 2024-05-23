@@ -37,8 +37,8 @@ const Header = () => {
           <div className="px-4 z-50 sm:px-6 lg:px-8 flex h-20 items-center justify-start gap-4 ">
             <Link href="/" className="ml-4 flex lg:ml-0 ">
               <p
-                className={`font-bold text-[36px]  lg:text-[48px] ${
-                  isFixed ? "   lg:text-[34px] text-[28px]" : ""
+                className={`font-bold  ${
+                  isFixed ? "   lg:text-5xl text-2xl" : "text-4xl  lg:text-6xl"
                 }  transition-all`}
               >
                 Haamerce
