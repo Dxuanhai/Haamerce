@@ -9,14 +9,14 @@ import { Separator } from "@/components/ui/separator";
 import axios from "axios";
 import useVoucher from "@/hooks/use-voucher";
 import useCart from "@/hooks/use-cart";
-import useUserInfo from "@/hooks/use-userInfo";
-
 import { BsBagCheckFill } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
+import useUserInfo from "@/hooks/use-userInfo";
+import { useUser } from "@clerk/nextjs";
+import { UserInfo } from "@/types";
 
 // Utility function to check if all required fields are present
-//@ts-ignore
-const isUserInfoComplete = (userInfo) => {
+const isUserInfoComplete = (userInfo: UserInfo) => {
   return (
     userInfo.paymentMethod &&
     userInfo.phoneNumber &&
@@ -31,13 +31,17 @@ const isUserInfoComplete = (userInfo) => {
 
 const CheckoutPage = () => {
   const router = useRouter();
-  const userInfo = useUserInfo();
+  const { userInfo } = useUserInfo();
+  const { user } = useUser(); // Access user from the Zustand store
+  console.log("🚀  / CheckoutPage  / user:", userInfo);
+  console.log("🚀  / CheckoutPage  / userInfo:", user?.id);
+  const cart = useCart();
+  const voucher = useVoucher();
 
   const [isLoading, setIsLoading] = useState(true);
   const [orderPlaced, setOrderPlaced] = useState(false);
   const orderSubmittedRef = useRef(false); // New ref to track order submission
-  const cart = useCart();
-  const voucher = useVoucher();
+
   const newItems = cart.items.map((item) => ({
     ...item,
     price: item.price - item.discount,
@@ -48,15 +52,16 @@ const CheckoutPage = () => {
     try {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/orders`;
       const res = await axios.post(url, {
-        paymentMethod: userInfo.userInfo.paymentMethod,
-        phoneNumber: userInfo.userInfo.phoneNumber,
-        address: userInfo.userInfo.address,
-        email: userInfo.userInfo.email,
-        fullName: userInfo.userInfo.fullName,
-        province: userInfo.userInfo.province,
-        district: userInfo.userInfo.district,
-        ward: userInfo.userInfo.ward,
+        paymentMethod: userInfo.paymentMethod,
+        phoneNumber: userInfo.phoneNumber,
+        address: userInfo.address,
+        email: userInfo.email,
+        fullName: userInfo.fullName,
+        province: userInfo.province,
+        district: userInfo.district,
+        ward: userInfo.ward,
         products: newItems,
+        userId: user?.id,
         voucher: voucher.voucher.price ? voucher.voucher.price : null,
         idGiftCode: voucher.voucher.idGiftCode
           ? voucher.voucher.idGiftCode
@@ -77,11 +82,15 @@ const CheckoutPage = () => {
   };
 
   useEffect(() => {
-    if (isUserInfoComplete(userInfo.userInfo) && !orderSubmittedRef.current) {
+    if (
+      isUserInfoComplete(userInfo) &&
+      user?.id &&
+      !orderSubmittedRef.current
+    ) {
       orderSubmittedRef.current = true; // Mark as submitted
       addOrder();
     }
-  }, [userInfo.userInfo]);
+  }, [userInfo, user?.id]); // Only run when userInfo or user.id changes
 
   const handleBackToCart = () => {
     router.push("/cart");

@@ -28,6 +28,7 @@ export interface Order {
 export interface UserInfo {
   fullName: string;
   phoneNumber: string;
+  profileId?: string;
   email: string;
   address: string;
   paymentMethod?: string;

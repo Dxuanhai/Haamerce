@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { toast } from "react-hot-toast";
+
 import { persist, createJSONStorage } from "zustand/middleware";
 
 import { UserInfo } from "@/types";
@@ -12,6 +12,7 @@ const useUserInfo = create(
   persist<UserStore>(
     (set, get) => ({
       userInfo: {
+        profileId: "sdsd",
         fullName: "",
         phoneNumber: "",
         email: "",
@@ -22,10 +23,11 @@ const useUserInfo = create(
         province: "",
       },
       add: (data: UserInfo) => {
-        const currentUserInfo = get().userInfo;
-
-        set({ userInfo: data });
-        toast.success("Thêm Thông tin thành công.");
+        set((state) => ({
+          ...state,
+          userInfo: data,
+          profileId: data.profileId,
+        }));
       },
     }),
     {

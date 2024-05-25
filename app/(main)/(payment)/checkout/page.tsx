@@ -3,16 +3,21 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronRight, ShoppingBag } from "lucide-react";
-
+import { useUser } from "@clerk/clerk-react";
 import Container from "@/components/ui/container";
 import ShipmentDetails from "@/components/form/shipmentDetails";
 import PaymentProducts from "@/components/paymentProducts";
 import { Separator } from "@/components/ui/separator";
 import getProvinces from "@/actions/get-provinces";
+import { initialProfile } from "@/lib/initial-profile";
+import { getProfile } from "@/actions/profile";
+import useUserInfo from "@/hooks/use-userInfo";
 
 const CheckoutPage = () => {
   const [provinces, setProvinces] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { isSignedIn } = useUser();
+
   const router = useRouter();
 
   useEffect(() => {
@@ -26,9 +31,12 @@ const CheckoutPage = () => {
         setIsLoading(false);
       }
     };
+
     fetchProvinces();
   }, []);
-
+  if (!isSignedIn) {
+    return router.push("/sign-in");
+  }
   const handleBackToCart = () => {
     router.push("/cart");
   };

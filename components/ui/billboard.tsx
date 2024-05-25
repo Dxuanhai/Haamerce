@@ -8,6 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { useState } from "react";
 import Image from "next/image";
+import { UserInfo } from "@/types";
 
 interface Props {
   id: string;
