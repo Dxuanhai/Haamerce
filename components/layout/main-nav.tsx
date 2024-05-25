@@ -76,7 +76,7 @@ const MainNav: React.FC<MainNavProps> = ({ data }) => {
                 />
               </Link>
               <Link
-                href={routes[1].href}
+                href={routes[1]?.href}
                 className="relative h-full group hover:rounded-t-md overflow-hidden"
                 onMouseLeave={() => setHoverIndex(-1)}
                 onMouseEnter={() => setHoverIndex(1)}
@@ -106,7 +106,7 @@ const MainNav: React.FC<MainNavProps> = ({ data }) => {
                 />
               </Link>
               <Link
-                href={routes[2].href}
+                href={routes[2]?.href}
                 className="relative h-full group hover:rounded-t-md overflow-hidden"
                 onMouseLeave={() => setHoverIndex(-1)}
                 onMouseEnter={() => setHoverIndex(2)}
@@ -136,7 +136,7 @@ const MainNav: React.FC<MainNavProps> = ({ data }) => {
                 />
               </Link>
               <Link
-                href={routes[3].href}
+                href={routes[3]?.href}
                 className="relative h-full group hover:rounded-t-md overflow-hidden"
                 onMouseLeave={() => setHoverIndex(-1)}
                 onMouseEnter={() => setHoverIndex(3)}

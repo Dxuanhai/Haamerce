@@ -77,3 +77,20 @@ export interface Ward {
   ward_name: string;
   ward_type?: string;
 }
+
+export interface Review {
+  id: string;
+  productId: string;
+  content: string;
+  parentId: string | null;
+  rating: number;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    id: string;
+    userId: string;
+    name: string;
+    imageUrl: string;
+  };
+  replies: Review[];
+}
