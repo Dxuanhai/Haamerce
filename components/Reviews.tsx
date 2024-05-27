@@ -9,8 +9,8 @@ import { formatDistanceToNow, parseISO } from "date-fns";
 import { vi } from "date-fns/locale";
 import "@smastrom/react-rating/style.css";
 import { Button } from "./ui/button";
-import { getProfile } from "@/actions/profile";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 interface Props {
   data: Review[];
@@ -25,25 +25,34 @@ const myStyles = {
 
 const Reviews = ({ data, productId }: Props) => {
   const { user } = useUser();
-
-  const [profile, setProfile] = useState<any>(null); // Set initial state to null
+  const [profile, setProfile] = useState<any>(null);
   const [averageRating, setAverageRating] = useState(0);
   const [rating, setRating] = useState(0);
-  const URL = `${process.env.NEXT_PUBLIC_API_URL}/purchased`;
+  const [content, setContent] = useState("");
+  const [hasReviewed, setHasReviewed] = useState(false);
+  const URL = `${process.env.NEXT_PUBLIC_API_URL}`;
+
   useEffect(() => {
     if (data.length > 0) {
       const totalRating = data.reduce((sum, review) => sum + review.rating, 0);
       const avgRating = totalRating / data.length;
       setAverageRating(avgRating);
     }
+
     const fetchProfile = async () => {
       try {
         if (user?.id) {
           const res = await axios.get(
-            `${URL}?userId=${user.id}&productId=${productId}`
+            `${URL}/purchased?userId=${user.id}&productId=${productId}`
           );
           if (res.data) {
             setProfile(res.data);
+            const userReview = data.find(
+              (review) => review.user.userId === user.id
+            );
+            if (userReview) {
+              setHasReviewed(true);
+            }
             console.log("🚀  / fetchProfile  / res:", res.data);
           }
         }
@@ -55,9 +64,37 @@ const Reviews = ({ data, productId }: Props) => {
   }, [data, user]);
 
   const handleSubmit = async () => {
-    // Handle submit logic here
-  };
+    if (!content || rating === 0) {
+      toast.error("Bạn phải nhập nội dung và đánh giá.");
+      return;
+    }
 
+    try {
+      const res = await axios.post(`${URL}/reviews`, {
+        content,
+        userId: user?.id,
+        productId,
+        rating,
+      });
+
+      if (res.status === 200) {
+        console.log("Review submitted successfully:", res.data);
+        setContent(""); // Clear the input field after submission
+        setRating(0); // Reset the rating after submission
+        setHasReviewed(true); // Prevent further reviews
+        window.location.reload(); // Reload the page to update the reviews list
+      } else {
+        console.error("Error submitting review:", res);
+      }
+    } catch (error) {
+      console.error("Error submitting review:", error);
+    }
+  };
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
+  };
   return (
     <div className="py-10 w-full">
       <h2 className="font-bold text-2xl">ĐÁNH GIÁ SẢN PHẨM</h2>
@@ -69,12 +106,12 @@ const Reviews = ({ data, productId }: Props) => {
           readOnly
         />
         <p className="mt-2"> ({data.length}) đánh giá</p>
-      </div>{" "}
-      {profile?.productId === productId && (
+      </div>
+      {profile?.productId === productId && !hasReviewed && (
         <div className="py-6 flex gap-4 items-center">
           <Avatar className="w-16 h-16">
             <AvatarImage
-              src={profile?.imageUrl || "https://github.com/shadcn.png"}
+              src={profile?.user?.imageUrl || "https://github.com/shadcn.png"}
             />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
@@ -83,6 +120,8 @@ const Reviews = ({ data, productId }: Props) => {
             <input
               className="w-full outline-none py-2 border-b-2 bg-none bg-transparent focus:border-b-gray-800 focus:dark:border-b-[#c59f60] placeholder:dark:text-[#c59f60]"
               placeholder="Đánh giá..."
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
             />
             <div className="flex justify-between w-full">
               <Rating
@@ -99,6 +138,24 @@ const Reviews = ({ data, productId }: Props) => {
               </Button>
             </div>
           </div>
+        </div>
+      )}
+      {profile?.productId !== productId && (
+        <div role="alert" className="alert alert-warning">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="stroke-current shrink-0 h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+            />
+          </svg>
+          <span>Mua hàng để đánh giá!</span>
         </div>
       )}
       <div className="flex flex-col gap-y-6 my-10">
