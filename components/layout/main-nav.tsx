@@ -176,6 +176,12 @@ const MainNav: React.FC<MainNavProps> = ({ data }) => {
         >
           <span className="font-bold">SẢN PHẨM </span> <ChevronDown />
         </div>
+        <div className="flex gap-2 items-center justify-start cursor-pointer">
+          <span className="font-bold">BỘ SƯU TẬP </span>
+        </div>
+        <div className="flex gap-2 items-center justify-start cursor-pointer">
+          <span className="font-bold">VỀ CHÚNG TÔI </span>
+        </div>
       </nav>
     </>
   );

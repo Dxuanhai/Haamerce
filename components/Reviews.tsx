@@ -133,6 +133,7 @@ const Reviews = ({ data, productId }: Props) => {
               <Button
                 className="text-base font-bold px-8 py-6 rounded-tl-2xl rounded-br-2xl dark:bg-[#db924b] dark:text-[#211308] dark:hover:opacity-70"
                 onClick={handleSubmit}
+                onKeyDown={handleKeyDown}
               >
                 GỬI
               </Button>
@@ -141,7 +142,11 @@ const Reviews = ({ data, productId }: Props) => {
         </div>
       )}
       {profile?.productId !== productId && (
-        <div role="alert" className="alert alert-warning">
+        <div
+          role="alert"
+          className="alert alert-warning my-8
+        "
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="stroke-current shrink-0 h-6 w-6"
@@ -171,7 +176,7 @@ const Reviews = ({ data, productId }: Props) => {
               <div className="flex flex-col gap-y-2">
                 <div className="flex gap-x-2 items-start">
                   <div className="font-bold">
-                    {item.user.name || "Khách hàng"}
+                    {item.user.name ? item.user.name : "Khách hàng"}
                   </div>
                   <div className="font-light text-sm">
                     {formatDistanceToNow(parseISO(item.createdAt), {

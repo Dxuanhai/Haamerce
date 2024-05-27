@@ -1,4 +1,4 @@
-import { createProfile, getProfile } from "@/actions/profile";
+import { createProfile, getProfile, updateProfile } from "@/actions/profile";
 import { currentUser } from "@clerk/nextjs/server";
 
 import { redirect } from "next/navigation";
@@ -12,7 +12,14 @@ export const initialProfile = async () => {
     const profile = await getProfile(user.id);
 
     if (profile) {
-      return profile;
+      const newProfile = await updateProfile(
+        user.firstName,
+        user.lastName,
+        user.id,
+        user.imageUrl
+      );
+
+      return newProfile;
     } else {
       const newProfile = await createProfile(
         user.firstName,

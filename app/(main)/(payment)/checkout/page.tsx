@@ -10,13 +10,11 @@ import PaymentProducts from "@/components/paymentProducts";
 import { Separator } from "@/components/ui/separator";
 import getProvinces from "@/actions/get-provinces";
 import { initialProfile } from "@/lib/initial-profile";
-import { getProfile } from "@/actions/profile";
-import useUserInfo from "@/hooks/use-userInfo";
 
 const CheckoutPage = () => {
   const [provinces, setProvinces] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { isSignedIn } = useUser();
+  const { isSignedIn, user } = useUser();
 
   const router = useRouter();
 

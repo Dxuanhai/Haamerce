@@ -37,7 +37,24 @@ export const createProfile = async (
       userId: userId,
       name: `${firstName} ${lastName}`,
       imageUrl: imageUrl,
-      storeId: `${process.env.ID_STORE}`,
+    });
+    return res.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const updateProfile = async (
+  firstName: string | null,
+  lastName: string | null,
+  userId: string,
+  imageUrl: string | null
+) => {
+  try {
+    const res = await axios.patch(`${URL}/${userId}`, {
+      name: `${firstName} ${lastName}`,
+      imageUrl: imageUrl,
     });
     return res.data;
   } catch (error) {
