@@ -21,7 +21,6 @@ async function page({ params }: Props) {
   const temp = params.productId.split(".html") ?? [];
   const productId = temp[0]?.split("_");
   const product = await getProduct(productId[productId.length - 1]);
-  const review = await getReviews(productId[productId.length - 1]);
 
   const products = await getProducts({
     isFeatured: true,
@@ -45,7 +44,7 @@ async function page({ params }: Props) {
       <div className="mt-[40px]">
         <ProductDetail product={product} />
       </div>
-      <Reviews data={review} productId={productId[productId.length - 1]} />
+      <Reviews productId={productId[productId.length - 1]} />
       <div className="mt-[60px]">
         <ProductList products={products} title="CÓ THỂ BẠN SẼ THÍCH" />
       </div>

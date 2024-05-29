@@ -316,7 +316,7 @@ function ShipmentDetails({ provinces }: Props) {
               name="ward"
               render={({ field }) => (
                 <FormItem className="relative">
-                  <FormLabel className="font-bold">Thị xã</FormLabel>
+                  <FormLabel className="font-bold">Phường/ xã</FormLabel>
                   <Select
                     disabled={loading}
                     value={field.value}
@@ -327,7 +327,7 @@ function ShipmentDetails({ provinces }: Props) {
                       <SelectTrigger>
                         <SelectValue
                           defaultValue={field.value}
-                          placeholder="chọn thị xã của bạn"
+                          placeholder="chọn Phường/ xã của bạn"
                         />
                       </SelectTrigger>
                     </FormControl>

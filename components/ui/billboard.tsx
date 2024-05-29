@@ -1,7 +1,8 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs, Autoplay } from "swiper/modules";
-// Import Swiper styles
+
+import "./bill.css";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";

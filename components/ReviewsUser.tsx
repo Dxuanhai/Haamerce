@@ -41,7 +41,7 @@ const ReviewsUser = () => {
         modules={[EffectCoverflow, Pagination, Autoplay]}
         className="mySwiper  "
       >
-        <SwiperSlide className=" opacity-90 bg-transparent">
+        <SwiperSlide className=" !opacity-90 !bg-transparent ">
           <div className="flex flex-col items-between p-6 gap-y-8  h-[460px]">
             <div className="flex justify-between ">
               <div className="flex flex-col gap-y-2">
@@ -65,7 +65,7 @@ const ReviewsUser = () => {
             </div>
           </div>
         </SwiperSlide>
-        <SwiperSlide className=" opacity-90 bg-transparent ">
+        <SwiperSlide className=" !opacity-90 !bg-transparent ">
           <div className="flex flex-col items-between p-6 gap-y-8 h-[460px]">
             <div className="flex justify-between">
               <div className="flex flex-col gap-y-2">
@@ -88,7 +88,7 @@ const ReviewsUser = () => {
             </div>
           </div>
         </SwiperSlide>
-        <SwiperSlide className=" opacity-90 bg-transparent">
+        <SwiperSlide className=" !opacity-90 !bg-transparent">
           <div className="flex flex-col items-between p-6 gap-y-8 h-[460px]">
             <div className="flex justify-between">
               <div className="flex flex-col gap-y-2">
@@ -111,7 +111,7 @@ const ReviewsUser = () => {
             </div>
           </div>
         </SwiperSlide>
-        <SwiperSlide className=" opacity-90 bg-transparent">
+        <SwiperSlide className=" !opacity-90 !bg-transparent">
           <div className="flex flex-col items-between p-6 gap-y-8 h-[460px]">
             <div className="flex justify-between">
               <div className="flex flex-col gap-y-2">
@@ -136,7 +136,7 @@ const ReviewsUser = () => {
             </div>
           </div>
         </SwiperSlide>
-        <SwiperSlide className=" opacity-90 bg-transparent">
+        <SwiperSlide className=" !opacity-90 !bg-transparent">
           <div className="flex flex-col items-between p-6 gap-y-8 h-[460px]">
             <div className="flex justify-between">
               <div className="flex flex-col gap-y-2">
@@ -160,7 +160,7 @@ const ReviewsUser = () => {
             </div>
           </div>
         </SwiperSlide>
-        <SwiperSlide className=" opacity-90 bg-transparent">
+        <SwiperSlide className=" !opacity-90 !bg-transparent">
           <div className="flex flex-col items-between p-6 gap-y-8 h-[460px]">
             <div className="flex justify-between">
               <div className="flex flex-col gap-y-2">
@@ -184,7 +184,7 @@ const ReviewsUser = () => {
             </div>
           </div>
         </SwiperSlide>
-        <SwiperSlide className=" opacity-90 bg-transparent">
+        <SwiperSlide className=" !opacity-90 !bg-transparent">
           <div className="flex flex-col items-between p-6 gap-y-8 h-[460px]">
             <div className="flex justify-between">
               <div className="flex flex-col gap-y-2">
