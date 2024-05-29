@@ -7,9 +7,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { vi } from "date-fns/locale";
 import "@smastrom/react-rating/style.css";
-import { Button } from "./ui/button";
+
 import axios from "axios";
-import { toast } from "react-hot-toast";
 
 interface Props {
   productId: string;
@@ -25,10 +24,7 @@ const Reviews = ({ productId }: Props) => {
   const { user } = useUser();
   const [profile, setProfile] = useState<any>(null);
   const [averageRating, setAverageRating] = useState(0);
-  const [rating, setRating] = useState(0);
-  const [content, setContent] = useState("");
   const [reviewData, setReviewData] = useState<Review[]>([]);
-  const [hasReviewed, setHasReviewed] = useState(false);
   const URL = `${process.env.NEXT_PUBLIC_API_URL}`;
 
   useEffect(() => {
@@ -69,9 +65,6 @@ const Reviews = ({ productId }: Props) => {
             const userReview = reviewData.find(
               (review) => review.user.userId === user.id
             );
-            if (userReview) {
-              setHasReviewed(true);
-            }
           }
         }
       } catch (error) {
@@ -80,40 +73,6 @@ const Reviews = ({ productId }: Props) => {
     };
     fetchProfile();
   }, [reviewData, user, URL, productId]);
-
-  const handleSubmit = async () => {
-    if (!content || rating === 0) {
-      toast.error("Bạn phải nhập nội dung và đánh giá.");
-      return;
-    }
-
-    try {
-      const res = await axios.post(`${URL}/reviews`, {
-        content,
-        userId: user?.id,
-        productId,
-        rating,
-      });
-
-      if (res.status === 200) {
-        console.log("Review submitted successfully:", res.data);
-        setContent(""); // Clear the input field after submission
-        setRating(0); // Reset the rating after submission
-        setHasReviewed(true); // Prevent further reviews
-        window.location.reload(); // Reload the page to update the reviews list
-      } else {
-        console.error("Error submitting review:", res);
-      }
-    } catch (error) {
-      console.error("Error submitting review:", error);
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      handleSubmit();
-    }
-  };
 
   return (
     <div className="py-10 w-full">
@@ -127,40 +86,7 @@ const Reviews = ({ productId }: Props) => {
         />
         <p className="mt-2"> ({reviewData.length}) đánh giá</p>
       </div>
-      {profile?.productId === productId && !hasReviewed && (
-        <div className="py-6 flex gap-4 items-center">
-          <Avatar className="w-16 h-16">
-            <AvatarImage
-              src={profile?.user?.imageUrl || "https://github.com/shadcn.png"}
-            />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
 
-          <div className="flex flex-col gap-4 items-end w-full">
-            <input
-              className="w-full outline-none py-2 border-b-2 bg-none bg-transparent focus:border-b-gray-800 focus:dark:border-b-[#c59f60] placeholder:dark:text-[#c59f60]"
-              placeholder="Đánh giá..."
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-            />
-            <div className="flex justify-between w-full">
-              <Rating
-                style={{ maxWidth: 240 }}
-                value={rating}
-                itemStyles={myStyles}
-                onChange={setRating}
-              />
-              <Button
-                className="text-base font-bold px-8 py-6 rounded-tl-2xl rounded-br-2xl dark:bg-[#db924b] dark:text-[#211308] dark:hover:opacity-70"
-                onClick={handleSubmit}
-                onKeyDown={handleKeyDown}
-              >
-                GỬI
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
       {profile?.productId !== productId && (
         <div role="alert" className="alert alert-warning my-8">
           <svg

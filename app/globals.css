@@ -13,6 +13,18 @@
   }
 }
 
+.steps .step-primary + .step-primary:before,
+.steps .step-primary:after {
+  background-color: black;
+}
+
+.dark {
+  .steps .step-primary + .step-primary:before,
+  .steps .step-primary:after {
+    background-color: #c59f60;
+    color: black;
+  }
+}
 .menu-dropdown {
   animation: slideUp 0.5s ease-in-out;
 }

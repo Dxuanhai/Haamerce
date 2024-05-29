@@ -27,7 +27,7 @@ const Header = () => {
       <Scroll classname="bottom-[80px]" />
 
       <header
-        className={`  bg-slate-50 sticky transition-all z-[100]  h-[100px] dark:bg-[#20161f]  ${
+        className={`  bg-slate-50 sticky transition-all z-[50]  h-[100px] dark:bg-[#20161f]  ${
           isFixed
             ? "top-0 left-0  border-b-2 dark:border-none  h-[80px]   "
             : ""
