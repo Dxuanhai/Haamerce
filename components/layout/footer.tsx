@@ -7,6 +7,7 @@ import {
   BiLogoYoutube,
   BiLogoInstagram,
 } from "react-icons/bi";
+import Link from "next/link";
 const Footer = () => {
   return (
     <footer className="md:py-8 border-t  bg-white dark:bg-[#120c12] ">
@@ -20,18 +21,18 @@ const Footer = () => {
                 </h2>
                 <h3 className="mb-2 flex justify-start gap-x-2">
                   <span className="font-bold">🏠 Địa chỉ: </span>
-                  <span>số 9x Đường xx, xx, xxxxxxx, xxx</span>
+                  <span>Dĩ An, Việt Nam, 590000</span>
                 </h3>
                 <h3 className="mb-2 flex justify-start gap-x-2">
                   <span className="font-bold">💌 Email:</span>
-                  <span>Haxxxxxx@gmail.com</span>
+                  <span>Haamerce@gmail.com</span>
                 </h3>
                 <h3 className="mb-2 flex justify-start gap-x-2">
                   <p className="font-bold"> 📞 Tel: </p>
-                  0966.xxx.xxx
+                  0352.348.759
                 </h3>
                 <div className=" flex gap-x-4">
-                  <div className="">
+                  <Link href="https://www.facebook.com/profile.php?id=61564288768702" className="">
                     <div className="w-[48px] h-[48px] flex items-center justify-center flex-col relative rounded-lg group hover:bg-[#1877f2] cursor-pointer overflow-hidden">
                       <BiLogoFacebook
                         className="group-hover:translate-y-[-100%] absolute  h-full transition-all"
@@ -42,7 +43,7 @@ const Footer = () => {
                         className="translate-y-[100%] group-hover:translate-y-[0] absolute bottom-0 h-full transition-all "
                       />
                     </div>
-                  </div>
+                  </Link>
                   <div className="">
                     <div className="w-[48px] h-[48px] flex items-center justify-center flex-col relative rounded-lg group hover:bg-[#000000] cursor-pointer overflow-hidden">
                       <FaXTwitter
