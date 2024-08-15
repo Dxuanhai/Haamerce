@@ -92,10 +92,11 @@ function Filterbar({ data, queryString, id }: Props) {
           variant="ghost"
           className="tracking-widest text-lg"
         >
-          Filter
+          Lọc
         </Button>
       </div>
     </>
+
   );
 }
 
